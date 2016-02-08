@@ -27,4 +27,11 @@ public class Users {
     public String listUsers() {
         return gson.toJson(users);
     }
+    
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getUser(@PathParam("id") Integer id) {
+        return gson.toJson(users.get(id));
+    }
 }
