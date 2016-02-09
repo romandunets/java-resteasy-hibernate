@@ -2,9 +2,7 @@ package com.knook.service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.knook.model.User;
-import java.util.HashMap;
-import java.util.Map;
+import com.knook.dao.UserDao;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -13,25 +11,22 @@ import javax.ws.rs.core.MediaType;
 
 @Path("users")
 public class Users {
-    GsonBuilder builder = new GsonBuilder();
-    Gson gson = builder.create();
-    private static Map<Integer, User> users = new HashMap<Integer, User>();
-    static {
-        users.put(1, new User(1l, "user_1@test.com", "password"));
-        users.put(2, new User(2l, "user_2@test.com", "password"));
-    }
+    private GsonBuilder builder = new GsonBuilder();
+    private Gson gson = builder.create();
     
+    private UserDao userDao = new UserDao();
+
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public String listUsers() {
-        return gson.toJson(users);
+        return gson.toJson(userDao.list());
     }
     
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getUser(@PathParam("id") Integer id) {
-        return gson.toJson(users.get(id));
+    public String getUser(@PathParam("id") Long id) {
+        return gson.toJson(userDao.get(id));
     }
 }
