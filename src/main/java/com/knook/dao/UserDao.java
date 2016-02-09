@@ -35,7 +35,31 @@ public class UserDao {
 
         return users;
     }
-    
-    
+
+    public User get(Long id) {
+        User user = null;
+        Session session = null;
+
+        try {
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            Query query = session.createQuery("from User u where u.id = :ID");
+            query.setParameter("ID", id);
+            user = (User) query.uniqueResult();
+            session.getTransaction().commit();
+        }
+        catch (Exception exception) {
+           if (session != null) {
+               session.getTransaction().rollback();
+           }
+        }
+        finally {
+            if (session != null) {
+               session.close();
+            }
+        }
+
+        return user;
+    }
     
 }
