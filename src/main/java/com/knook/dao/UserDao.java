@@ -87,4 +87,29 @@ public class UserDao {
         return success;
     }
 
+    public boolean update(User user) {
+        Boolean success = false;
+        Session session = null;
+
+        try {
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            session.merge(user);
+            session.getTransaction().commit();
+            success = true;
+        }
+        catch (Exception exception) {
+           if (session != null) {
+               session.getTransaction().rollback();
+           }
+        }
+        finally {
+            if (session != null) {
+               session.close();
+            }
+        }
+
+        return success;
+    }
+
 }
