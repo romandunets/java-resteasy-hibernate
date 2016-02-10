@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.knook.dao.UserDao;
 import com.knook.model.User;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -55,6 +56,19 @@ public class Users {
     public Response updateUser(User user, @PathParam("id") Long id) {
         user.setId(id);
         if (userDao.update(user)) {
+            return Response.status(Response.Status.OK).build();
+        }
+        else {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+    
+    @DELETE
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteUser(@PathParam("id") Long id) {
+        User user = userDao.get(id);
+        if (user != null && userDao.delete(user)) {
             return Response.status(Response.Status.OK).build();
         }
         else {
