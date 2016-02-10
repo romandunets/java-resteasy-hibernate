@@ -62,4 +62,29 @@ public class UserDao {
         return user;
     }
     
+    public boolean create(User user) {
+        Boolean success = false;
+        Session session = null;
+
+        try {
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            session.persist(user);
+            session.getTransaction().commit();
+            success = true;
+        }
+        catch (Exception exception) {
+           if (session != null) {
+               session.getTransaction().rollback();
+           }
+        }
+        finally {
+            if (session != null) {
+               session.close();
+            }
+        }
+
+        return success;
+    }
+
 }
