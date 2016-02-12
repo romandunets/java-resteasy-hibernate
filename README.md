@@ -42,3 +42,31 @@ Also you must have Java 7, Maven to build the application, Glassfish to deploy a
     ```
 
 1. Use your favorite IDE to deploy and run the application. Particularly, for this project were used Netbeans 8.1.
+
+## Endpoints
+There are one main resource, **users**
+
+The route for this is
+
+- /users
+
+### List users
+You can list all users making a GET request to ```/users.json```
+
+### Get user
+You can get one user making a GET request to ```/users/1.json``` (replace 1 by a target user id)
+
+### Create user
+You can create an new user making a POST request to ```/users.json``` with the following parameters
+```
+{ "email": "johndoe@example.com", "password": "password" }
+```
+
+### Update user
+You can create an new user making a PUT request to ```/users/1.json``` (replace 1 by a target user id) with the following parameters
+```
+{ "email": "johndoe@example.com", "password": "password" }
+```
+
+### Delete user
+You can delete an existing user making a DELETE request to ```/users/1.json``` (replace 1 by a target user id)
