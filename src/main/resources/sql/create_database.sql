@@ -1,9 +1,16 @@
 CREATE DATABASE `knook`;
 
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `email` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `email` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_unique` (`email`)
+);
+
+CREATE TABLE IF NOT EXISTS `notes` (
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(45) NOT NULL,
+  `content` TEXT NOT NULL,
+  PRIMARY KEY (`id`)
 );

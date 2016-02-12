@@ -43,8 +43,8 @@ Also you must have Java 7, Maven to build the application, Glassfish to deploy a
 
 1. Use your favorite IDE to deploy and run the application. Particularly, for this project were used Netbeans 8.1.
 
-## Endpoints
-There are one main resource, **users**
+## Services
+There are one main service, **users**
 
 The route for this is
 
