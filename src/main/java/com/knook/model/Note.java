@@ -11,6 +11,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="notes")
 public class Note {
+
     @Id
     @Expose
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -59,7 +60,5 @@ public class Note {
     public void setContent(String content) {
         this.content = content;
     }
-    
-     
-    
+
 }
