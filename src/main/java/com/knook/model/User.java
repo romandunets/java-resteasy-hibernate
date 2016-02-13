@@ -11,6 +11,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="users")
 public class User {
+
     @Id
     @Expose
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -59,4 +60,5 @@ public class User {
     public final void setPassword(String password) {
         this.password = password;
     }
+
 }

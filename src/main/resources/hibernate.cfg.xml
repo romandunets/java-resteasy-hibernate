@@ -12,6 +12,7 @@
     <property name="show_sql">true</property>
 
     <mapping class="com.knook.model.User"/>
+    <mapping class="com.knook.model.Note"/>
   </session-factory>
 
 </hibernate-configuration>

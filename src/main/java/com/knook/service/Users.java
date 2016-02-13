@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response;
 
 @Path("users")
 public class Users {
+
     private GsonBuilder builder = new GsonBuilder();
     private Gson gson = builder.create();
     
