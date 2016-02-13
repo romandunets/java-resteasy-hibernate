@@ -8,9 +8,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 public class NoteDao {
-    
+
     protected SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-    
+
     public List<Note> list() {
         List<Note> notes = null;
         Session session = null;
@@ -35,7 +35,7 @@ public class NoteDao {
 
         return notes;
     }
-    
+
     public Note get(Long id) {
         Note note = null;
         Session session = null;
@@ -60,6 +60,31 @@ public class NoteDao {
         }
 
         return note;
+    }
+
+    public boolean create(Note note) {
+        Boolean success = false;
+        Session session = null;
+
+        try {
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            session.persist(note);
+            session.getTransaction().commit();
+            success = true;
+        }
+        catch (Exception exception) {
+           if (session != null) {
+               session.getTransaction().rollback();
+           }
+        }
+        finally {
+            if (session != null) {
+               session.close();
+            }
+        }
+
+        return success;
     }
 
 }
