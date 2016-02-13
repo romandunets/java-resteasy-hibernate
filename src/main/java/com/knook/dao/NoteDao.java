@@ -112,4 +112,29 @@ public class NoteDao {
         return success;
     }
 
+    public boolean delete(Note note) {
+        Boolean success = false;
+        Session session = null;
+
+        try {
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            session.delete(note);
+            session.getTransaction().commit();
+            success = true;
+        }
+        catch (Exception exception) {
+           if (session != null) {
+               session.getTransaction().rollback();
+           }
+        }
+        finally {
+            if (session != null) {
+               session.close();
+            }
+        }
+
+        return success;
+    }
+
 }
