@@ -43,7 +43,7 @@ public class NoteDao {
         try {
             session = sessionFactory.openSession();
             session.beginTransaction();
-            Query query = session.createQuery("from User u where u.id = :ID");
+            Query query = session.createQuery("from Note n where n.id = :ID");
             query.setParameter("ID", id);
             note = (Note) query.uniqueResult();
             session.getTransaction().commit();
