@@ -7,6 +7,7 @@ import com.knook.model.Note;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -41,6 +42,20 @@ public class Notes {
     @Produces(MediaType.APPLICATION_JSON)
     public Response createNote(Note note) {
         if (noteDao.create(note)) {
+            return Response.status(Response.Status.OK).build();
+        }
+        else {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+
+    @PUT
+    @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateNote(Note note, @PathParam("id") Long id) {
+        note.setId(id);
+        if (noteDao.update(note)) {
             return Response.status(Response.Status.OK).build();
         }
         else {
