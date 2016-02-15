@@ -43,12 +43,13 @@ Also you must have Java 7, Maven to build the application, Glassfish to deploy a
 
 1. Use your favorite IDE to deploy and run the application. Particularly, for this project were used Netbeans 8.1.
 
-## Services
-There are one main service, **users**
+## API Endpoints
+There are two main services, **users** and **notes**
 
-The route for this is
+The routes for these are
 
 - /users
+- /notes
 
 ### List users
 You can list all users making a GET request to ```/users.json```
@@ -63,10 +64,31 @@ You can create an new user making a POST request to ```/users.json``` with the f
 ```
 
 ### Update user
-You can create an new user making a PUT request to ```/users/1.json``` (replace 1 by a target user id) with the following parameters
+You can update an existing user making a PUT request to ```/users/1.json``` (replace 1 by a target user id) with the following parameters
 ```
 { "email": "johndoe@example.com", "password": "password" }
 ```
 
 ### Delete user
 You can delete an existing user making a DELETE request to ```/users/1.json``` (replace 1 by a target user id)
+
+### List notes
+You can list all notes making a GET request to ```/notes.json```
+
+### Get note
+You can get one note making a GET request to ```/notes/1.json``` (replace 1 by a target note id)
+
+### Create note
+You can create an new note making a POST request to ```/notes.json``` with the following parameters
+```
+{ "title": "First note", "content": "Some note..." }
+```
+
+### Update note
+You can update an existing note making a PUT request to ```/notes/1.json``` (replace 1 by a target note id) with the following parameters
+```
+{ "title": "Another note", "content": "Another note..." }
+```
+
+### Delete note
+You can delete an existing note making a DELETE request to ```/notes/1.json``` (replace 1 by a target note id)
