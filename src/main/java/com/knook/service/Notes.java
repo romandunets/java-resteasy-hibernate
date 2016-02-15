@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.knook.dao.NoteDao;
 import com.knook.model.Note;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -56,6 +57,19 @@ public class Notes {
     public Response updateNote(Note note, @PathParam("id") Long id) {
         note.setId(id);
         if (noteDao.update(note)) {
+            return Response.status(Response.Status.OK).build();
+        }
+        else {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+
+    @DELETE
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteNote(@PathParam("id") Long id) {
+        Note note = noteDao.get(id);
+        if (note != null && noteDao.delete(note)) {
             return Response.status(Response.Status.OK).build();
         }
         else {
