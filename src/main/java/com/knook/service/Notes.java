@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.knook.dao.NoteDao;
 import com.knook.model.Note;
+import com.knook.serializer.NoteSerializer;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -18,7 +19,7 @@ import javax.ws.rs.core.Response;
 @Path("notes")
 public class Notes {
 
-    private GsonBuilder builder = new GsonBuilder();
+    private GsonBuilder builder = new GsonBuilder().registerTypeAdapter(Note.class, new NoteSerializer());
     private Gson gson = builder.create();
 
     private NoteDao noteDao = new NoteDao();
@@ -29,11 +30,11 @@ public class Notes {
     public String listNotes() {
         return gson.toJson(noteDao.list());
     }
-    
+
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getNotes(@PathParam("id") Long id) {
+    public String getNote(@PathParam("id") Long id) {
         return gson.toJson(noteDao.get(id));
     }
 
