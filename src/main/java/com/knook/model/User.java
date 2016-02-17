@@ -1,11 +1,14 @@
 package com.knook.model;
 
-import com.google.gson.annotations.Expose;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -13,28 +16,31 @@ import javax.persistence.Table;
 public class User {
 
     @Id
-    @Expose
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id", nullable=false)
     private Long id;
-    
-    @Expose
+
     @Column(name="email", nullable=false)
     private String email;
 
     @Column(name="password", nullable=false)
     private String password;
+
+    @OneToMany(mappedBy = "user", cascade=CascadeType.ALL)
+    private Set<Note> notes;
     
     public User() {
         this.id = 0l;
         this.email = "";
         this.password = "";
+        this.notes = new HashSet<>();
     }
 
-    public User(Long id, String email, String password) {
+    public User(Long id, String email, String password, Set<Note> notes) {
         this.id = id;
         this.email = email;
         this.password = password;
+        this.notes = notes;
     }
     
     public Long getId() {
@@ -57,8 +63,16 @@ public class User {
         return password;
     }
 
-    public final void setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<Note> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(Set<Note> notes) {
+        this.notes = notes;
     }
 
 }
