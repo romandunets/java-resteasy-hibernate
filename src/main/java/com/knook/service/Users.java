@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.knook.dao.UserDao;
 import com.knook.model.User;
+import com.knook.serializer.UserSerializer;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -18,7 +19,7 @@ import javax.ws.rs.core.Response;
 @Path("users")
 public class Users {
 
-    private GsonBuilder builder = new GsonBuilder();
+    private GsonBuilder builder = new GsonBuilder().registerTypeAdapter(User.class, new UserSerializer());;
     private Gson gson = builder.create();
     
     private UserDao userDao = new UserDao();
