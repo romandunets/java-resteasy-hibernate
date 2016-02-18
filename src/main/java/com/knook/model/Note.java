@@ -35,6 +35,13 @@ public class Note {
         this.user = new User();
     }
 
+    public Note(String title, String content) {
+        this.id = 0l;
+        this.title = title;
+        this.content = content;
+        this.user = new User();
+    }
+
     public Note(Long id, String title, String content, User user) {
         this.id = id;
         this.title = title;
