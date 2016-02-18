@@ -19,7 +19,9 @@ import javax.ws.rs.core.Response;
 @Path("notes")
 public class Notes {
 
-    private GsonBuilder builder = new GsonBuilder().registerTypeAdapter(Note.class, new NoteSerializer());
+    private GsonBuilder builder = new GsonBuilder()
+        .setPrettyPrinting()
+        .registerTypeAdapter(Note.class, new NoteSerializer());
     private Gson gson = builder.create();
 
     private NoteDao noteDao = new NoteDao();
