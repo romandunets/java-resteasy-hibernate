@@ -36,6 +36,13 @@ public class User {
         this.notes = new HashSet<>();
     }
 
+    public User(String email, String password) {
+        this.id = 0l;
+        this.email = email;
+        this.password = password;
+        this.notes = new HashSet<>();
+    }
+
     public User(Long id, String email, String password, Set<Note> notes) {
         this.id = id;
         this.email = email;
