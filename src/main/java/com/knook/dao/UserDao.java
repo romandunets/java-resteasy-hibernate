@@ -3,6 +3,7 @@ package com.knook.dao;
 import com.knook.model.User;
 import com.knook.util.HibernateUtil;
 import java.util.List;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -46,6 +47,7 @@ public class UserDao {
             Query query = session.createQuery("from User u where u.id = :ID");
             query.setParameter("ID", id);
             user = (User) query.uniqueResult();
+            Hibernate.initialize(user.getNotes());
             session.getTransaction().commit();
         }
         catch (Exception exception) {
