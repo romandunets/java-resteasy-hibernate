@@ -3,7 +3,9 @@ package com.knook.service;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.knook.dao.NoteDao;
+import com.knook.dao.UserDao;
 import com.knook.model.Note;
+import com.knook.model.User;
 import com.knook.serializer.NoteSerializer;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -16,7 +18,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("notes")
+@Path("users/{user_id}/notes")
 public class Notes {
 
     private GsonBuilder builder = new GsonBuilder()
@@ -44,7 +46,12 @@ public class Notes {
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createNote(Note note) {
+    public Response createNote(@PathParam("user_id") Long user_id, String json) {
+        UserDao userDao = new UserDao();
+        User user = userDao.get(user_id);
+        Note note = gson.fromJson(json, Note.class);
+        note.setUser(user);
+
         if (noteDao.create(note)) {
             return Response.status(Response.Status.OK).build();
         }
