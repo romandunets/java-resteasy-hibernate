@@ -44,7 +44,8 @@ public class Users {
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createUser(User user) {
+    public Response createUser(String json) {
+        User user = gson.fromJson(json, User.class);
         if (userDao.create(user)) {
             return Response.status(Response.Status.OK).build();
         }
