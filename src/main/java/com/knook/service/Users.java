@@ -19,7 +19,9 @@ import javax.ws.rs.core.Response;
 @Path("users")
 public class Users {
 
-    private GsonBuilder builder = new GsonBuilder().registerTypeAdapter(User.class, new UserSerializer());;
+    private GsonBuilder builder = new GsonBuilder()
+        .setPrettyPrinting()
+        .registerTypeAdapter(User.class, new UserSerializer());;
     private Gson gson = builder.create();
     
     private UserDao userDao = new UserDao();
