@@ -58,7 +58,8 @@ public class Users {
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateUser(User user, @PathParam("id") Long id) {
+    public Response updateUser(@PathParam("id") Long id, String json) {
+        User user = gson.fromJson(json, User.class);
         user.setId(id);
         if (userDao.update(user)) {
             return Response.status(Response.Status.OK).build();
