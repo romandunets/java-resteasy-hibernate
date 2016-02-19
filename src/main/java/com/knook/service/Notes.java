@@ -31,8 +31,8 @@ public class Notes {
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public String listNotes() {
-        return gson.toJson(noteDao.list());
+    public String listNotes(@PathParam("user_id") Long userId) {
+        return gson.toJson(noteDao.listForUser(userId));
     }
 
     @GET
