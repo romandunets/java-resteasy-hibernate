@@ -46,9 +46,9 @@ public class Notes {
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createNote(@PathParam("user_id") Long user_id, String json) {
+    public Response createNote(@PathParam("user_id") Long userId, String json) {
         UserDao userDao = new UserDao();
-        User user = userDao.get(user_id);
+        User user = userDao.get(userId);
         Note note = gson.fromJson(json, Note.class);
         note.setUser(user);
 
@@ -64,8 +64,13 @@ public class Notes {
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateNote(Note note, @PathParam("id") Long id) {
+    public Response updateNote(@PathParam("user_id") Long userId, @PathParam("id") Long id, String json) {
+        UserDao userDao = new UserDao();
+        User user = userDao.get(userId);
+        Note note = gson.fromJson(json, Note.class);
         note.setId(id);
+        note.setUser(user);
+
         if (noteDao.update(note)) {
             return Response.status(Response.Status.OK).build();
         }
