@@ -137,4 +137,30 @@ public class NoteDao {
         return success;
     }
 
+    public List<Note> listForUser(Long userId) {
+        List<Note> notes = null;
+        Session session = null;
+
+        try {
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            Query query = session.createQuery("from Note n where n.user.id = :USER_ID");
+            query.setParameter("USER_ID", userId);
+            notes = query.list();
+            session.getTransaction().commit();
+        }
+        catch (Exception exception) {
+           if (session != null) {
+               session.getTransaction().rollback();
+           }
+        }
+        finally {
+            if (session != null) {
+               session.close();
+            }
+        }
+
+        return notes;
+    }
+
 }
