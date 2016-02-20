@@ -82,8 +82,8 @@ public class Notes {
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteNote(@PathParam("id") Long id) {
-        Note note = noteDao.get(id);
+    public Response deleteNote(@PathParam("user_id") Long userId, @PathParam("id") Long id) {
+        Note note = noteDao.getForUser(userId, id);
         if (note != null && noteDao.delete(note)) {
             return Response.status(Response.Status.OK).build();
         }
