@@ -163,4 +163,31 @@ public class NoteDao {
         return notes;
     }
 
+    public Note getForUser(Long userId, Long id) {
+        Note note = null;
+        Session session = null;
+
+        try {
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            Query query = session.createQuery("from Note n where n.user.id = :USER_ID and n.id = :ID");
+            query.setParameter("USER_ID", userId);
+            query.setParameter("ID", id);
+            note = (Note) query.uniqueResult();
+            session.getTransaction().commit();
+        }
+        catch (Exception exception) {
+           if (session != null) {
+               session.getTransaction().rollback();
+           }
+        }
+        finally {
+            if (session != null) {
+               session.close();
+            }
+        }
+
+        return note;
+    }
+
 }
