@@ -38,8 +38,8 @@ public class Notes {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getNote(@PathParam("id") Long id) {
-        return gson.toJson(noteDao.get(id));
+    public String getNote(@PathParam("user_id") Long userId, @PathParam("id") Long id) {
+        return gson.toJson(noteDao.getForUser(userId, id));
     }
 
     @POST
