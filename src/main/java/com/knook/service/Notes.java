@@ -61,13 +61,9 @@ public class Notes {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateNote(@PathParam("user_id") Long userId, @PathParam("id") Long id, String json) {
-        UserDao userDao = new UserDao();
-        User user = userDao.get(userId);
         Note note = gson.fromJson(json, Note.class);
         note.setId(id);
-        note.setUser(user);
-
-        if (noteDao.update(note)) {
+        if (noteDao.updateForUser(note, userId)) {
             return Response.status(Response.Status.OK).build();
         }
         else {
