@@ -29,14 +29,14 @@ public class Users {
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public String listUsers() {
+    public String list() {
         return gson.toJson(userDao.list());
     }
     
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getUser(@PathParam("id") Long id) {
+    public String get(@PathParam("id") Long id) {
         return gson.toJson(userDao.get(id));
     }
 
@@ -44,7 +44,7 @@ public class Users {
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createUser(String json) {
+    public Response create(String json) {
         User user = gson.fromJson(json, User.class);
         if (userDao.create(user)) {
             return Response.status(Response.Status.OK).build();
@@ -58,7 +58,7 @@ public class Users {
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateUser(@PathParam("id") Long id, String json) {
+    public Response update(@PathParam("id") Long id, String json) {
         User user = gson.fromJson(json, User.class);
         user.setId(id);
         if (userDao.update(user)) {
@@ -72,7 +72,7 @@ public class Users {
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteUser(@PathParam("id") Long id) {
+    public Response delete(@PathParam("id") Long id) {
         User user = userDao.get(id);
         if (user != null && userDao.delete(user)) {
             return Response.status(Response.Status.OK).build();
