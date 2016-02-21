@@ -1,6 +1,7 @@
 package com.knook.dao;
 
 import com.knook.model.Note;
+import com.knook.model.User;
 import com.knook.util.HibernateUtil;
 import java.util.List;
 import org.hibernate.Query;
@@ -188,6 +189,33 @@ public class NoteDao {
         }
 
         return note;
+    }
+
+    public boolean createForUser(Note note, Long userId) {
+        Boolean success = false;
+        Session session = null;
+        User user = new User(userId);
+        note.setUser(user);
+
+        try {
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            session.persist(note);
+            session.getTransaction().commit();
+            success = true;
+        }
+        catch (Exception exception) {
+           if (session != null) {
+               session.getTransaction().rollback();
+           }
+        }
+        finally {
+            if (session != null) {
+               session.close();
+            }
+        }
+
+        return success;
     }
 
 }
