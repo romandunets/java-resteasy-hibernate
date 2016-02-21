@@ -7,6 +7,7 @@ import com.knook.dao.UserDao;
 import com.knook.model.Note;
 import com.knook.model.User;
 import com.knook.serializer.NoteSerializer;
+import java.util.Objects;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -76,7 +77,7 @@ public class Notes {
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteNote(@PathParam("user_id") Long userId, @PathParam("id") Long id) {
         Note note = noteDao.getForUser(userId, id);
-        if (note != null && noteDao.delete(note)) {
+        if (note != null && Objects.equals(note.getUser().getId(), userId) && noteDao.delete(note)) {
             return Response.status(Response.Status.OK).build();
         }
         else {
