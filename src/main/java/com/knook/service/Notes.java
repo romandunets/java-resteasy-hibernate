@@ -32,14 +32,14 @@ public class Notes {
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public String listNotes(@PathParam("user_id") Long userId) {
+    public String list(@PathParam("user_id") Long userId) {
         return gson.toJson(noteDao.listForUser(userId));
     }
 
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getNote(@PathParam("user_id") Long userId, @PathParam("id") Long id) {
+    public String get(@PathParam("user_id") Long userId, @PathParam("id") Long id) {
         return gson.toJson(noteDao.getForUser(userId, id));
     }
 
@@ -47,7 +47,7 @@ public class Notes {
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createNote(@PathParam("user_id") Long userId, String json) {
+    public Response create(@PathParam("user_id") Long userId, String json) {
         Note note = gson.fromJson(json, Note.class);
         if (noteDao.createForUser(note, userId)) {
             return Response.status(Response.Status.OK).build();
@@ -61,7 +61,7 @@ public class Notes {
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateNote(@PathParam("user_id") Long userId, @PathParam("id") Long id, String json) {
+    public Response update(@PathParam("user_id") Long userId, @PathParam("id") Long id, String json) {
         Note note = gson.fromJson(json, Note.class);
         note.setId(id);
         if (noteDao.updateForUser(note, userId)) {
@@ -75,7 +75,7 @@ public class Notes {
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteNote(@PathParam("user_id") Long userId, @PathParam("id") Long id) {
+    public Response delete(@PathParam("user_id") Long userId, @PathParam("id") Long id) {
         Note note = noteDao.getForUser(userId, id);
         if (note != null && Objects.equals(note.getUser().getId(), userId) && noteDao.delete(note)) {
             return Response.status(Response.Status.OK).build();
