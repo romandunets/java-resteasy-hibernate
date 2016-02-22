@@ -10,7 +10,7 @@ This is a simple note taking application called Knook. Also, this project is a b
 - MySQL (data storage)
 
 ## Features
-Knook provides full CRUD operations for user management.
+Knook provides full CRUD operations for user and note management.
 
 ## Getting Started
 
@@ -73,22 +73,22 @@ You can update an existing user making a PUT request to ```/users/1.json``` (rep
 You can delete an existing user making a DELETE request to ```/users/1.json``` (replace 1 by a target user id)
 
 ### List notes
-You can list all notes making a GET request to ```/notes.json```
+You can list all notes for a specific user making a GET request to ```/users/1/notes.json``` (replace 1 by a target user id)
 
 ### Get note
-You can get one note making a GET request to ```/notes/1.json``` (replace 1 by a target note id)
+You can get one note for a specific user making a GET request to ```/users/1/notes/2.json``` (replace 1 by a target user id and 2 by a target note id)
 
 ### Create note
-You can create an new note making a POST request to ```/notes.json``` with the following parameters
+You can create an new note for a specific user making a POST request to ```/users/1/notes.json``` (replace 1 by a target user id) with the following parameters
 ```
 { "title": "First note", "content": "Some note..." }
 ```
 
 ### Update note
-You can update an existing note making a PUT request to ```/notes/1.json``` (replace 1 by a target note id) with the following parameters
+You can update an existing note for a specific user making a PUT request to ```/users/1/notes/2.json``` (replace 1 by a target user id and 2 by a target note id) with the following parameters
 ```
 { "title": "Another note", "content": "Another note..." }
 ```
 
 ### Delete note
-You can delete an existing note making a DELETE request to ```/notes/1.json``` (replace 1 by a target note id)
+You can delete an existing note making a DELETE request to ```/users/1/notes/2.json``` (replace 1 by a target user id and 2 by a target note id)
