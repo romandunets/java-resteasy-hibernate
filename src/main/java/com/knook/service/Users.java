@@ -30,7 +30,7 @@ public class Users {
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public String list() {
-        return gson.toJson(userDao.list());
+        return gson.toJson(userDao.findAll());
     }
     
     @GET
