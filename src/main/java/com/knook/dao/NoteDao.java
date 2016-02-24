@@ -8,9 +8,13 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-public class NoteDao {
+public class NoteDao extends AbstractDao<Note> {
 
     protected SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+
+    public NoteDao() {
+        super(Note.class);
+    }
 
     public List<Note> listForUser(Long userId) {
         List<Note> notes = null;
@@ -119,29 +123,7 @@ public class NoteDao {
         return success;
     }
 
-    public boolean delete(Note note) {
-        Boolean success = false;
-        Session session = null;
-
-        try {
-            session = sessionFactory.openSession();
-            session.beginTransaction();
-            session.delete(note);
-            session.getTransaction().commit();
-            success = true;
-        }
-        catch (Exception exception) {
-           if (session != null) {
-               session.getTransaction().rollback();
-           }
-        }
-        finally {
-            if (session != null) {
-               session.close();
-            }
-        }
-
-        return success;
-    }
+    @Override
+    protected void initializeEntity(Note note) {}
 
 }
