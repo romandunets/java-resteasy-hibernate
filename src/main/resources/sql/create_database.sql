@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_unique` (`email`)
 );

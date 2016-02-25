@@ -1,5 +1,6 @@
 package com.knook.model;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -10,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="users")
@@ -26,6 +29,10 @@ public class User {
     @Column(name="password", nullable=false)
     private String password;
 
+    @Column(name="created_at", nullable=false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+
     @OneToMany(mappedBy = "user", cascade=CascadeType.ALL)
     private Set<Note> notes;
     
@@ -34,6 +41,7 @@ public class User {
         this.email = "";
         this.password = "";
         this.notes = new HashSet<>();
+        this.createdAt = new Date();
     }
 
     public User(Long id) {
@@ -41,6 +49,7 @@ public class User {
         this.email = "";
         this.password = "";
         this.notes = new HashSet<>();
+        this.createdAt = new Date();
     }
 
     public User(String email, String password) {
@@ -48,13 +57,15 @@ public class User {
         this.email = email;
         this.password = password;
         this.notes = new HashSet<>();
+        this.createdAt = new Date();
     }
 
-    public User(Long id, String email, String password, Set<Note> notes) {
+    public User(Long id, String email, String password, Set<Note> notes, Date createdAt) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.notes = notes;
+        this.createdAt = createdAt;
     }
     
     public Long getId() {
@@ -87,6 +98,14 @@ public class User {
 
     public void setNotes(Set<Note> notes) {
         this.notes = notes;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
 }
