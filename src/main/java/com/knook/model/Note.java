@@ -34,6 +34,10 @@ public class Note {
     @Column(name="created_at", nullable=false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
+
+    @Column(name="updated_at", nullable=false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt;
     
     public Note() {
         this.id = 0l;
@@ -41,6 +45,7 @@ public class Note {
         this.content = "";
         this.user = new User();
         this.createdAt = new Date();
+        this.updatedAt = new Date();
     }
 
     public Note(String title, String content) {
@@ -49,14 +54,16 @@ public class Note {
         this.content = content;
         this.user = new User();
         this.createdAt = new Date();
+        this.updatedAt = new Date();
     }
 
-    public Note(Long id, String title, String content, User user, Date createdAt) {
+    public Note(Long id, String title, String content, User user, Date createdAt, Date updatedAt) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.user = user;
         this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public Long getId() {
@@ -97,6 +104,14 @@ public class Note {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
 
