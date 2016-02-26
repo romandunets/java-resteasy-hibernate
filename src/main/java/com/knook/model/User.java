@@ -33,6 +33,10 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
+    @Column(name="updated_at", nullable=false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt;
+
     @OneToMany(mappedBy = "user", cascade=CascadeType.ALL)
     private Set<Note> notes;
     
@@ -42,6 +46,7 @@ public class User {
         this.password = "";
         this.notes = new HashSet<>();
         this.createdAt = new Date();
+        this.updatedAt = new Date();
     }
 
     public User(Long id) {
@@ -50,6 +55,7 @@ public class User {
         this.password = "";
         this.notes = new HashSet<>();
         this.createdAt = new Date();
+        this.updatedAt = new Date();
     }
 
     public User(String email, String password) {
@@ -58,14 +64,16 @@ public class User {
         this.password = password;
         this.notes = new HashSet<>();
         this.createdAt = new Date();
+        this.updatedAt = new Date();
     }
 
-    public User(Long id, String email, String password, Set<Note> notes, Date createdAt) {
+    public User(Long id, String email, String password, Set<Note> notes, Date createdAt, Date updatedAt) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.notes = notes;
         this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
     
     public Long getId() {
@@ -106,6 +114,14 @@ public class User {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
 }
