@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS `notes` (
   `title` VARCHAR(45) NOT NULL,
   `content` TEXT NOT NULL,
   `user_id` BIGINT(20) NOT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_users_to_notes` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 );

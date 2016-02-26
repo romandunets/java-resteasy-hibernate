@@ -1,5 +1,6 @@
 package com.knook.model;
 
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="notes")
@@ -27,12 +30,17 @@ public class Note {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Column(name="created_at", nullable=false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
     
     public Note() {
         this.id = 0l;
         this.title = "";
         this.content = "";
         this.user = new User();
+        this.createdAt = new Date();
     }
 
     public Note(String title, String content) {
@@ -40,13 +48,15 @@ public class Note {
         this.title = title;
         this.content = content;
         this.user = new User();
+        this.createdAt = new Date();
     }
 
-    public Note(Long id, String title, String content, User user) {
+    public Note(Long id, String title, String content, User user, Date createdAt) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.user = user;
+        this.createdAt = createdAt;
     }
 
     public Long getId() {
@@ -79,6 +89,14 @@ public class Note {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
 

@@ -44,36 +44,36 @@ public class User {
         this.id = 0l;
         this.email = "";
         this.password = "";
-        this.notes = new HashSet<>();
         this.createdAt = new Date();
         this.updatedAt = new Date();
+        this.notes = new HashSet<>();
     }
 
     public User(Long id) {
         this.id = id;
         this.email = "";
         this.password = "";
-        this.notes = new HashSet<>();
         this.createdAt = new Date();
         this.updatedAt = new Date();
+        this.notes = new HashSet<>();
     }
 
     public User(String email, String password) {
         this.id = 0l;
         this.email = email;
         this.password = password;
-        this.notes = new HashSet<>();
         this.createdAt = new Date();
         this.updatedAt = new Date();
+        this.notes = new HashSet<>();
     }
 
-    public User(Long id, String email, String password, Set<Note> notes, Date createdAt, Date updatedAt) {
+    public User(Long id, String email, String password, Date createdAt, Date updatedAt, Set<Note> notes) {
         this.id = id;
         this.email = email;
         this.password = password;
-        this.notes = notes;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.notes = notes;
     }
     
     public Long getId() {
