@@ -31,7 +31,7 @@ public class Note {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(name="created_at", nullable=false)
+    @Column(name="created_at", updatable = false, nullable=false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
