@@ -10,18 +10,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `email_unique` (`email`)
 );
 
-CREATE TABLE IF NOT EXISTS `notes` (
-  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(45) NOT NULL,
-  `content` TEXT NOT NULL,
-  `user_id` BIGINT(20) NOT NULL,
-  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fk_users_to_notes` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-);
-
-CREATE TABLE IF NOT EXISTS `groupes` (
+CREATE TABLE IF NOT EXISTS `groups` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `description` TEXT NOT NULL,
@@ -29,5 +18,18 @@ CREATE TABLE IF NOT EXISTS `groupes` (
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_users_to_groupes` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+  CONSTRAINT `fk_groupes_to_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `notes` (
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(45) NOT NULL,
+  `content` TEXT NOT NULL,
+  `user_id` BIGINT(20) NOT NULL,
+  `group_id` BIGINT(20),
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_notes_to_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `fk_notes_to_groups` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`)
 );
