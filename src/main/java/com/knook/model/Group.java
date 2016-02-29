@@ -13,19 +13,19 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="notes")
-public class Note {
+@Table(name="groups")
+public class Group {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id", nullable=false)
     private Long id;
 
-    @Column(name="title", nullable=false)
-    private String title;
+    @Column(name="name", nullable=false)
+    private String name;
 
-    @Column(name="content", nullable=false)
-    private String content;
+    @Column(name="description", nullable=false)
+    private String description;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -39,28 +39,28 @@ public class Note {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
     
-    public Note() {
+    public Group() {
         this.id = 0l;
-        this.title = "";
-        this.content = "";
+        this.name = "";
+        this.description = "";
         this.user = new User();
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }
 
-    public Note(String title, String content) {
+    public Group(String name, String description) {
         this.id = 0l;
-        this.title = title;
-        this.content = content;
+        this.name = name;
+        this.description = description;
         this.user = new User();
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }
 
-    public Note(Long id, String title, String content, User user, Date createdAt, Date updatedAt) {
+    public Group(Long id, String name, String description, User user, Date createdAt, Date updatedAt) {
         this.id = id;
-        this.title = title;
-        this.content = content;
+        this.name = name;
+        this.description = description;
         this.user = user;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -74,20 +74,20 @@ public class Note {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getContent() {
-        return content;
+    public String getDescription() {
+        return description;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public User getUser() {
