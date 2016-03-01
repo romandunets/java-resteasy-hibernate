@@ -31,6 +31,10 @@ public class Note {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    private Group group;
+
     @Column(name="created_at", updatable = false, nullable=false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
@@ -44,6 +48,7 @@ public class Note {
         this.title = "";
         this.content = "";
         this.user = new User();
+        this.group = new Group();
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }
@@ -53,15 +58,17 @@ public class Note {
         this.title = title;
         this.content = content;
         this.user = new User();
+        this.group = new Group();
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }
 
-    public Note(Long id, String title, String content, User user, Date createdAt, Date updatedAt) {
+    public Note(Long id, String title, String content, User user, Group group, Date createdAt, Date updatedAt) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.user = user;
+        this.group = group;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -96,6 +103,14 @@ public class Note {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public Date getCreatedAt() {
