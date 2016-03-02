@@ -13,6 +13,7 @@
 
     <mapping class="com.knook.model.User"/>
     <mapping class="com.knook.model.Note"/>
+    <mapping class="com.knook.model.Group"/>
   </session-factory>
 
 </hibernate-configuration>
