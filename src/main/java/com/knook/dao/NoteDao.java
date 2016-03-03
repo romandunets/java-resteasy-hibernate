@@ -2,15 +2,11 @@ package com.knook.dao;
 
 import com.knook.model.Note;
 import com.knook.model.User;
-import com.knook.util.HibernateUtil;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
 public class NoteDao extends AbstractDao<Note> {
-
-    protected SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
     public NoteDao() {
         super(Note.class);

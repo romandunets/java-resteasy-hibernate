@@ -9,8 +9,8 @@ import org.hibernate.SessionFactory;
 
 public abstract class AbstractDao<T> {
     
-    private Class<T> clazz;
-    private final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+    protected Class<T> clazz;
+    protected final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
     
     public AbstractDao(Class<T> clazz) {
         this.clazz = clazz;
