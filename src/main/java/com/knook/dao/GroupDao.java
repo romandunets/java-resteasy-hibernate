@@ -37,6 +37,33 @@ public class GroupDao extends AbstractDao<Group> {
         return groupes;
     }
 
+    public Group getForUser(Long userId, Long id) {
+        Group group = null;
+        Session session = null;
+
+        try {
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            Query query = session.createQuery("from Group g where g.user.id = :USER_ID and g.id = :ID");
+            query.setParameter("USER_ID", userId);
+            query.setParameter("ID", id);
+            group = (Group) query.uniqueResult();
+            session.getTransaction().commit();
+        }
+        catch (Exception exception) {
+           if (session != null) {
+               session.getTransaction().rollback();
+           }
+        }
+        finally {
+            if (session != null) {
+               session.close();
+            }
+        }
+
+        return group;
+    }
+
     @Override
     protected void initializeEntity(Group group) {}
 
