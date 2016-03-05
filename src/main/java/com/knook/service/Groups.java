@@ -28,4 +28,11 @@ public class Groups {
         return gson.toJson(groupDao.listForUser(userId));
     }
 
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String get(@PathParam("user_id") Long userId, @PathParam("id") Long id) {
+        return gson.toJson(groupDao.getForUser(userId, id));
+    }
+
 }
