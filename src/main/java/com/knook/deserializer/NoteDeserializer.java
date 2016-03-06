@@ -4,9 +4,7 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
-import com.knook.dao.UserDao;
 import com.knook.model.Note;
-import com.knook.model.User;
 import java.lang.reflect.Type;
 
 public class NoteDeserializer implements JsonDeserializer<Note> {
