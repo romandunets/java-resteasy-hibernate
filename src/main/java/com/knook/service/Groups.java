@@ -5,7 +5,9 @@ import com.google.gson.GsonBuilder;
 import com.knook.dao.GroupDao;
 import com.knook.model.Group;
 import com.knook.serializer.GroupSerializer;
+import java.util.Objects;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -61,6 +63,19 @@ public class Groups {
         Group group = gson.fromJson(json, Group.class);
         group.setId(id);
         if (groupDao.updateForUser(group, userId)) {
+            return Response.status(Response.Status.OK).build();
+        }
+        else {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+
+    @DELETE
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response delete(@PathParam("user_id") Long userId, @PathParam("id") Long id) {
+        Group note = groupDao.getForUser(userId, id);
+        if (note != null && Objects.equals(note.getUser().getId(), userId) && groupDao.delete(note)) {
             return Response.status(Response.Status.OK).build();
         }
         else {
