@@ -92,6 +92,33 @@ public class GroupDao extends AbstractDao<Group> {
         return success;
     }
 
+    public boolean updateForUser(Group group, Long userId) {
+        Boolean success = false;
+        Session session = null;
+        User user = new User(userId);
+        group.setUser(user);
+
+        try {
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            session.merge(group);
+            session.getTransaction().commit();
+            success = true;
+        }
+        catch (Exception exception) {
+           if (session != null) {
+               session.getTransaction().rollback();
+           }
+        }
+        finally {
+            if (session != null) {
+               session.close();
+            }
+        }
+
+        return success;
+    }
+
     @Override
     protected void initializeEntity(Group group) {}
 
