@@ -8,6 +8,7 @@ import com.knook.serializer.GroupSerializer;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -45,6 +46,21 @@ public class Groups {
     public Response create(@PathParam("user_id") Long userId, String json) {
         Group group = gson.fromJson(json, Group.class);
         if (groupDao.createForUser(group, userId)) {
+            return Response.status(Response.Status.OK).build();
+        }
+        else {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+
+    @PUT
+    @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response update(@PathParam("user_id") Long userId, @PathParam("id") Long id, String json) {
+        Group group = gson.fromJson(json, Group.class);
+        group.setId(id);
+        if (groupDao.updateForUser(group, userId)) {
             return Response.status(Response.Status.OK).build();
         }
         else {
