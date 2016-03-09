@@ -31,6 +31,10 @@ public class Group {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "parent_group_id")
+    private Group parent;
+
     @Column(name="created_at", updatable = false, nullable=false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
@@ -96,6 +100,14 @@ public class Group {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Group getParent() {
+        return parent;
+    }
+
+    public void setParent(Group parent) {
+        this.parent = parent;
     }
 
     public Date getCreatedAt() {

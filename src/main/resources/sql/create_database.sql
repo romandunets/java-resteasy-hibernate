@@ -15,10 +15,12 @@ CREATE TABLE IF NOT EXISTS `groups` (
   `name` VARCHAR(45) NOT NULL,
   `description` TEXT NOT NULL,
   `user_id` BIGINT(20) NOT NULL,
+  `parent_group_id` BIGINT(20),
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_groupes_to_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+  CONSTRAINT `fk_groupes_to_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `fk_groupes_to_groupes` FOREIGN KEY (`parent_group_id`) REFERENCES `groups` (`id`)
 );
 
 CREATE TABLE IF NOT EXISTS `notes` (
