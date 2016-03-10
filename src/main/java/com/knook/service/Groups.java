@@ -83,4 +83,11 @@ public class Groups {
         }
     }
 
+    @GET
+    @Path("/{id}/children")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String listChildren(@PathParam("user_id") Long userId, @PathParam("id") Long id) {
+        return gson.toJson(groupDao.listChildrenFor(id));
+    }
+
 }
