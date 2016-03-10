@@ -3,6 +3,7 @@ package com.knook.dao;
 import com.knook.model.Group;
 import com.knook.model.User;
 import java.util.List;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -119,7 +120,35 @@ public class GroupDao extends AbstractDao<Group> {
         return success;
     }
 
+    public List<Group> listChildrenFor(Long id) {
+        List<Group> groupes = null;
+        Session session = null;
+
+        try {
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            Query query = session.createQuery("from Group g where g.parent.id = :ID");
+            query.setParameter("ID", id);
+            groupes = query.list();
+            session.getTransaction().commit();
+        }
+        catch (Exception exception) {
+           if (session != null) {
+               session.getTransaction().rollback();
+           }
+        }
+        finally {
+            if (session != null) {
+               session.close();
+            }
+        }
+
+        return groupes;
+    }
+
     @Override
-    protected void initializeEntity(Group group) {}
+    protected void initializeEntity(Group group) {
+        Hibernate.initialize(group.getChildren());
+    }
 
 }
