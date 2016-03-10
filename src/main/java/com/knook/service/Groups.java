@@ -74,8 +74,8 @@ public class Groups {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response delete(@PathParam("user_id") Long userId, @PathParam("id") Long id) {
-        Group note = groupDao.getForUser(userId, id);
-        if (note != null && Objects.equals(note.getUser().getId(), userId) && groupDao.delete(note)) {
+        Group group = groupDao.getForUser(userId, id);
+        if (group != null && Objects.equals(group.getUser().getId(), userId) && groupDao.delete(group)) {
             return Response.status(Response.Status.OK).build();
         }
         else {
@@ -87,7 +87,8 @@ public class Groups {
     @Path("/{id}/children")
     @Produces(MediaType.APPLICATION_JSON)
     public String listChildren(@PathParam("user_id") Long userId, @PathParam("id") Long id) {
-        return gson.toJson(groupDao.listChildrenFor(id));
+        Group group = groupDao.getForUser(userId, id);
+        return gson.toJson(group.getChildren());
     }
 
 }
