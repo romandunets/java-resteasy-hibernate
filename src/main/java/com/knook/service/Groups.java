@@ -91,4 +91,20 @@ public class Groups {
         return gson.toJson(group.getChildren());
     }
 
+    @POST
+    @Path("/{id}/children")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createChild(@PathParam("user_id") Long userId, @PathParam("id") Long id, String json) {
+        Group parent = groupDao.getForUser(userId, id);
+        Group group = gson.fromJson(json, Group.class);
+        group.setParent(parent);
+        if (groupDao.createForUser(group, userId)) {
+            return Response.status(Response.Status.OK).build();
+        }
+        else {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+
 }
