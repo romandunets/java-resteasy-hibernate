@@ -107,4 +107,18 @@ public class Groups {
         }
     }
 
+    @POST
+    @Path("/{id}/children/{child_id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response removeChild(@PathParam("user_id") Long userId, @PathParam("id") Long id, @PathParam("child_id") Long childId, String json) {
+        Group group = groupDao.getForUser(userId, childId);
+        if (group != null && Objects.equals(group.getUser().getId(), userId) && groupDao.delete(group)) {
+            return Response.status(Response.Status.OK).build();
+        }
+        else {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+
 }
