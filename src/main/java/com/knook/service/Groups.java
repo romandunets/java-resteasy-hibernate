@@ -3,7 +3,9 @@ package com.knook.service;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.knook.dao.GroupDao;
+import com.knook.dao.UserDao;
 import com.knook.model.Group;
+import com.knook.model.User;
 import com.knook.serializer.GroupSerializer;
 import java.util.Objects;
 import javax.ws.rs.Consumes;
@@ -25,13 +27,15 @@ public class Groups {
         .registerTypeAdapter(Group.class, new GroupSerializer());
     private Gson gson = builder.create();
 
+    private UserDao userDao = new UserDao();
     private GroupDao groupDao = new GroupDao();
 
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public String list(@PathParam("user_id") Long userId) {
-        return gson.toJson(groupDao.listForUser(userId));
+        User user = userDao.get(userId);
+        return gson.toJson(user.getGroups());
     }
 
     @GET
