@@ -27,13 +27,15 @@ public class Notes {
         .registerTypeAdapter(Note.class, new NoteSerializer());
     private Gson gson = builder.create();
 
+    private UserDao userDao = new UserDao();
     private NoteDao noteDao = new NoteDao();
 
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public String list(@PathParam("user_id") Long userId) {
-        return gson.toJson(noteDao.listForUser(userId));
+        User user = userDao.get(userId);
+        return gson.toJson(user.getNotes());
     }
 
     @GET
