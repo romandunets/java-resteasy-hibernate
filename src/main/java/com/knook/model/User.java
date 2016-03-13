@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,9 +38,12 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
-    @OneToMany(mappedBy = "user", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Note> notes;
     
+    @OneToMany(mappedBy = "user", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Group> groups;
+
     public User() {
         this.id = 0l;
         this.email = "";
@@ -47,6 +51,7 @@ public class User {
         this.createdAt = new Date();
         this.updatedAt = new Date();
         this.notes = new HashSet<>();
+        this.groups = new HashSet<>();
     }
 
     public User(Long id) {
@@ -56,6 +61,7 @@ public class User {
         this.createdAt = new Date();
         this.updatedAt = new Date();
         this.notes = new HashSet<>();
+        this.groups = new HashSet<>();
     }
 
     public User(String email, String password) {
@@ -65,15 +71,17 @@ public class User {
         this.createdAt = new Date();
         this.updatedAt = new Date();
         this.notes = new HashSet<>();
+        this.groups = new HashSet<>();
     }
 
-    public User(Long id, String email, String password, Date createdAt, Date updatedAt, Set<Note> notes) {
+    public User(Long id, String email, String password, Date createdAt, Date updatedAt, Set<Note> notes, Set<Group> groups) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.notes = notes;
+        this.groups = groups;
     }
     
     public Long getId() {
@@ -106,6 +114,14 @@ public class User {
 
     public void setNotes(Set<Note> notes) {
         this.notes = notes;
+    }
+
+    public Set<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<Group> groupes) {
+        this.groups = groupes;
     }
 
     public Date getCreatedAt() {
