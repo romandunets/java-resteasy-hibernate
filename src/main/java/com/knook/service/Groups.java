@@ -50,8 +50,10 @@ public class Groups {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response create(@PathParam("user_id") Long userId, String json) {
+        User user = userDao.get(userId);
         Group group = gson.fromJson(json, Group.class);
-        if (groupDao.createForUser(group, userId)) {
+        group.setUser(user);
+        if (groupDao.create(group)) {
             return Response.status(Response.Status.OK).build();
         }
         else {
