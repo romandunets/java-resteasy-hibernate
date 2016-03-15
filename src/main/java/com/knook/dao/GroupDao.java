@@ -68,7 +68,6 @@ public class GroupDao extends AbstractDao<Group> {
 
     @Override
     protected void initializeEntity(Group group) {
-        Hibernate.initialize(group.getChildren());
     }
 
 }

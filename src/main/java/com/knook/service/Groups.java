@@ -42,7 +42,7 @@ public class Groups {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String get(@PathParam("user_id") Long userId, @PathParam("id") Long id) {
-        return gson.toJson(groupDao.getForUser(userId, id));
+        return gson.toJson(groupDao.get(id));
     }
     
     @POST
@@ -52,7 +52,9 @@ public class Groups {
     public Response create(@PathParam("user_id") Long userId, String json) {
         User user = userDao.get(userId);
         Group group = gson.fromJson(json, Group.class);
+
         group.setUser(user);
+
         if (groupDao.create(group)) {
             return Response.status(Response.Status.OK).build();
         }
