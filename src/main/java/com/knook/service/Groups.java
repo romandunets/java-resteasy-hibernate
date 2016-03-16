@@ -82,7 +82,8 @@ public class Groups {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response delete(@PathParam("user_id") Long userId, @PathParam("id") Long id) {
-        Group group = groupDao.getForUser(userId, id);
+        Group group = groupDao.get(id);
+
         if (group != null && Objects.equals(group.getUser().getId(), userId) && groupDao.delete(group)) {
             return Response.status(Response.Status.OK).build();
         }
