@@ -56,7 +56,7 @@ public abstract class AbstractDao<T> {
         try {
             session = sessionFactory.openSession();
             session.beginTransaction();
-            Query query = session.createQuery("from User u where u.id = :ID");
+            Query query = session.createQuery("from " + this.clazz.getSimpleName() + " e where e.id = :ID");
             query.setParameter("ID", id);
             entity = (T) query.uniqueResult();
             Hibernate.initialize(entity);
