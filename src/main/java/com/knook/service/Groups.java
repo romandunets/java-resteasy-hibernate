@@ -52,7 +52,6 @@ public class Groups {
     public Response create(@PathParam("user_id") Long userId, String json) {
         User user = userDao.get(userId);
         Group group = gson.fromJson(json, Group.class);
-
         group.setUser(user);
 
         if (groupDao.create(group)) {
@@ -70,7 +69,8 @@ public class Groups {
     public Response update(@PathParam("user_id") Long userId, @PathParam("id") Long id, String json) {
         Group group = gson.fromJson(json, Group.class);
         group.setId(id);
-        if (groupDao.updateForUser(group, userId)) {
+
+        if (groupDao.update(group)) {
             return Response.status(Response.Status.OK).build();
         }
         else {
@@ -107,7 +107,7 @@ public class Groups {
     @Produces(MediaType.APPLICATION_JSON)
     public Response createChild(@PathParam("user_id") Long userId, @PathParam("id") Long id, String json) {
         User user = userDao.get(userId);
-        Group parent = groupDao.getForUser(userId, id);
+        Group parent = groupDao.get(id);
         Group group = gson.fromJson(json, Group.class);
 
         group.setUser(user);
@@ -126,7 +126,8 @@ public class Groups {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response removeChild(@PathParam("user_id") Long userId, @PathParam("id") Long id, @PathParam("child_id") Long childId, String json) {
-        Group group = groupDao.getForUser(userId, childId);
+        Group group = groupDao.get(childId);
+
         if (group != null && Objects.equals(group.getUser().getId(), userId) && groupDao.delete(group)) {
             return Response.status(Response.Status.OK).build();
         }
