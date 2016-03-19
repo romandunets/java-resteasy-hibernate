@@ -33,9 +33,16 @@ public class Groups {
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public String list(@PathParam("user_id") Long userId) {
+    public Response list(@PathParam("user_id") Long userId) {
         User user = userDao.get(userId);
-        return gson.toJson(user.getGroups());
+
+        if (user != null) {
+            String response = gson.toJson(user.getGroups());
+            return Response.ok(response).build();
+        }
+        else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
     }
 
     @GET
