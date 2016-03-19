@@ -44,7 +44,8 @@ public class Groups {
     public Response get(@PathParam("user_id") Long userId, @PathParam("id") Long id) {
         User user = userDao.get(userId);
         Group group = groupDao.get(id);
-        if (user.getGroups().contains(group)) {
+
+        if (user != null && group != null && Objects.equals(group.getUser().getId(), user.getId())) {
             String response = gson.toJson(group);
             return Response.ok(response).build();
         }
