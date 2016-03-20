@@ -83,10 +83,11 @@ public class Groups {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response update(@PathParam("user_id") Long userId, @PathParam("id") Long id, String json) {
+        User user = userDao.get(userId);
         Group group = gson.fromJson(json, Group.class);
         group.setId(id);
 
-        if (groupDao.update(group)) {
+        if (user != null && Objects.equals(group.getUser().getId(), user.getId()) && groupDao.update(group)) {
             return Response.status(Response.Status.OK).build();
         }
         else {
