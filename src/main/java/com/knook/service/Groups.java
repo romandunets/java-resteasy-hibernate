@@ -8,6 +8,7 @@ import com.knook.model.Group;
 import com.knook.model.User;
 import com.knook.serializer.GroupSerializer;
 import java.util.Objects;
+import java.util.Set;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -113,10 +114,17 @@ public class Groups {
     @GET
     @Path("/{id}/children")
     @Produces(MediaType.APPLICATION_JSON)
-    public String listChildren(@PathParam("user_id") Long userId, @PathParam("id") Long id) {
+    public Response listChildren(@PathParam("user_id") Long userId, @PathParam("id") Long id) {
         User user = userDao.get(userId);
         Group group = groupDao.get(id);
-        return gson.toJson(group.getChildren());
+        
+        if (user != null && Objects.equals(group.getUser().getId(), user.getId())) {
+            Set<Group> children = group.getChildren();
+            return Response.ok(gson.toJson(children)).build();
+        }
+        else {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
     }
 
     @POST
