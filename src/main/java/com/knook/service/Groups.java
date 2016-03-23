@@ -139,7 +139,7 @@ public class Groups {
         group.setUser(user);
         group.setParent(parent);
 
-        if (groupDao.create(group)) {
+        if (user != null && parent != null && Objects.equals(parent.getUser().getId(), user.getId()) && groupDao.create(group)) {
             return Response.status(Response.Status.OK).build();
         }
         else {
