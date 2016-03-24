@@ -48,8 +48,17 @@ public class Notes {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String get(@PathParam("user_id") Long userId, @PathParam("id") Long id) {
-        return gson.toJson(noteDao.getForUser(userId, id));
+    public Response get(@PathParam("user_id") Long userId, @PathParam("id") Long id) {
+        User user = userDao.get(userId);
+        Note note = noteDao.get(id);
+
+        if (user != null && note != null && Objects.equals(note.getUser().getId(), user.getId())) {
+            String response = gson.toJson(note);
+            return Response.ok(response).build();
+        }
+        else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
     }
 
     @POST
