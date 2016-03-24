@@ -152,9 +152,11 @@ public class Groups {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response removeChild(@PathParam("user_id") Long userId, @PathParam("id") Long id, @PathParam("child_id") Long childId, String json) {
+        User user = userDao.get(userId);
+        Group parent = groupDao.get(id);
         Group group = groupDao.get(childId);
 
-        if (group != null && Objects.equals(group.getUser().getId(), userId) && groupDao.delete(group)) {
+        if (user != null && group != null && parent != null && Objects.equals(parent.getUser().getId(), userId) && Objects.equals(group.getUser().getId(), userId) && groupDao.delete(group)) {
             return Response.status(Response.Status.OK).build();
         }
         else {
