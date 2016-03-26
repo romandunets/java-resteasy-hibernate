@@ -87,8 +87,9 @@ public class Groups {
         User user = userDao.get(userId);
         Group group = gson.fromJson(json, Group.class);
         group.setId(id);
+        group.setUser(user);
 
-        if (user != null && Objects.equals(group.getUser().getId(), user.getId()) && groupDao.update(group)) {
+        if (user != null && groupDao.update(group)) {
             return Response.status(Response.Status.OK).build();
         }
         else {
