@@ -156,7 +156,7 @@ public class Groups {
         Group parent = groupDao.get(id);
         Group group = groupDao.get(childId);
 
-        if (user != null && group != null && parent != null && Objects.equals(parent.getUser().getId(), userId) && Objects.equals(group.getUser().getId(), userId) && groupDao.delete(group)) {
+        if (user != null && group != null && parent != null && Objects.equals(parent.getUser().getId(), userId) && Objects.equals(group.getParent().getId(), parent.getId()) && Objects.equals(parent.getUser().getId(), userId) && groupDao.delete(group)) {
             return Response.status(Response.Status.OK).build();
         }
         else {
