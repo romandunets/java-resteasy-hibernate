@@ -148,7 +148,7 @@ public class Groups {
         }
     }
 
-    @POST
+    @DELETE
     @Path("/{id}/children/{child_id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
