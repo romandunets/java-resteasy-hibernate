@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `groups` (
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_groupes_to_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `fk_groupes_to_groupes` FOREIGN KEY (`parent_group_id`) REFERENCES `groups` (`id`)
+  CONSTRAINT `fk_groupes_to_groupes` FOREIGN KEY (`parent_group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS `notes` (
@@ -33,5 +33,5 @@ CREATE TABLE IF NOT EXISTS `notes` (
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_notes_to_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `fk_notes_to_groups` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`)
+  CONSTRAINT `fk_notes_to_groups` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
