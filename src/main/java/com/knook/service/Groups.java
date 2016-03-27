@@ -104,7 +104,7 @@ public class Groups {
         User user = userDao.get(userId);
         Group group = groupDao.get(id);
 
-        if (group != null && Objects.equals(group.getUser().getId(), user.getId()) && groupDao.delete(group)) {
+        if (user != null && group != null && Objects.equals(group.getUser().getId(), user.getId()) && groupDao.delete(group)) {
             return Response.status(Response.Status.OK).build();
         }
         else {
