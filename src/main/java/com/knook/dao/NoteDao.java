@@ -38,33 +38,6 @@ public class NoteDao extends AbstractDao<Note> {
         return note;
     }
 
-    public boolean createForUser(Note note, Long userId) {
-        Boolean success = false;
-        Session session = null;
-        User user = new User(userId);
-        note.setUser(user);
-
-        try {
-            session = sessionFactory.openSession();
-            session.beginTransaction();
-            session.persist(note);
-            session.getTransaction().commit();
-            success = true;
-        }
-        catch (Exception exception) {
-           if (session != null) {
-               session.getTransaction().rollback();
-           }
-        }
-        finally {
-            if (session != null) {
-               session.close();
-            }
-        }
-
-        return success;
-    }
-
     public boolean updateForUser(Note note, Long userId) {
         Boolean success = false;
         Session session = null;
