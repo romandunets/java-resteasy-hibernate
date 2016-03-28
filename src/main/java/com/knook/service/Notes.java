@@ -66,8 +66,11 @@ public class Notes {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response create(@PathParam("user_id") Long userId, String json) {
+        User user = userDao.get(userId);
         Note note = gson.fromJson(json, Note.class);
-        if (noteDao.createForUser(note, userId)) {
+        note.setUser(user);
+
+        if (noteDao.create(note)) {
             return Response.status(Response.Status.OK).build();
         }
         else {
