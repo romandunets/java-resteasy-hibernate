@@ -88,7 +88,7 @@ public class Notes {
         note.setId(id);
         note.setUser(user);
 
-        if (noteDao.update(note)) {
+        if (user != null && noteDao.update(note)) {
             return Response.status(Response.Status.OK).build();
         }
         else {
