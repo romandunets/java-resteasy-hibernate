@@ -36,8 +36,16 @@ public class Users {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String get(@PathParam("id") Long id) {
-        return gson.toJson(userDao.get(id));
+    public Response get(@PathParam("id") Long id) {
+        User user = userDao.get(id);
+
+        if (user != null) {
+            String response = gson.toJson(user);
+            return Response.ok(response).build();
+        }
+        else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
     }
 
     @POST
