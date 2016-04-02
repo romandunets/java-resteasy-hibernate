@@ -54,7 +54,8 @@ public class Users {
     @Produces(MediaType.APPLICATION_JSON)
     public Response create(String json) {
         User user = gson.fromJson(json, User.class);
-        if (userDao.create(user)) {
+
+        if (user != null && userDao.create(user)) {
             return Response.status(Response.Status.OK).build();
         }
         else {
