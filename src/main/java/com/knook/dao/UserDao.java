@@ -11,7 +11,6 @@ public class UserDao extends AbstractDao<User> {
 
     @Override
     protected void initializeEntity(User user) {
-        Hibernate.initialize(user.getNotes());
     }
 
 }

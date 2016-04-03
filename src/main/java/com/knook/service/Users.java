@@ -70,6 +70,7 @@ public class Users {
     public Response update(@PathParam("id") Long id, String json) {
         User user = gson.fromJson(json, User.class);
         user.setId(id);
+
         if (userDao.update(user)) {
             return Response.status(Response.Status.OK).build();
         }
@@ -83,6 +84,7 @@ public class Users {
     @Produces(MediaType.APPLICATION_JSON)
     public Response delete(@PathParam("id") Long id) {
         User user = userDao.get(id);
+
         if (user != null && userDao.delete(user)) {
             return Response.status(Response.Status.OK).build();
         }
