@@ -8,8 +8,4 @@ public class GroupDao extends AbstractDao<Group> {
         super(Group.class);
     }
 
-    @Override
-    protected void initializeEntity(Group group) {
-    }
-
 }

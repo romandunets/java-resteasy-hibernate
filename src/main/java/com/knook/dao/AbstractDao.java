@@ -150,7 +150,5 @@ public abstract class AbstractDao<T> {
 
         return success;
     }
-    
-    protected abstract void initializeEntity(T entity);
 
 }

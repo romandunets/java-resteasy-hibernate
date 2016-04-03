@@ -8,7 +8,4 @@ public class NoteDao extends AbstractDao<Note> {
         super(Note.class);
     }
 
-    @Override
-    protected void initializeEntity(Note note) {}
-
 }
