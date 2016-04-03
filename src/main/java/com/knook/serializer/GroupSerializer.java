@@ -16,7 +16,6 @@ public class GroupSerializer implements JsonSerializer<Group> {
         object.addProperty("id", src.getId());
         object.addProperty("name", src.getName());
         object.addProperty("description", src.getDescription());
-        object.addProperty("user_id", src.getUser().getId());
 
         if (src.getParent() != null) {
           object.addProperty("parent_group_id", src.getParent().getId());
