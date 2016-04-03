@@ -16,7 +16,6 @@ public class NoteSerializer implements JsonSerializer<Note> {
         object.addProperty("id", src.getId());
         object.addProperty("title", src.getTitle());
         object.addProperty("content", src.getContent());
-        object.addProperty("user_id", src.getUser().getId());
         object.addProperty("group_id", src.getGroup().getId());
         object.addProperty("created_at", src.getCreatedAt().toString());
         object.addProperty("updated_at", src.getUpdatedAt().toString());

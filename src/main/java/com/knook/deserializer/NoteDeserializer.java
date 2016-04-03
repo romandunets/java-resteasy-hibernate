@@ -15,7 +15,6 @@ public class NoteDeserializer implements JsonDeserializer<Note> {
         String content = json.getAsJsonObject().get("content").getAsString();
         
         Note note = new Note(title, content);
-
         return note;
     }
 
