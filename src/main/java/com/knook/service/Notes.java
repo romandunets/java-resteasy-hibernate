@@ -2,8 +2,10 @@ package com.knook.service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.knook.dao.GroupDao;
 import com.knook.dao.NoteDao;
 import com.knook.dao.UserDao;
+import com.knook.model.Group;
 import com.knook.model.Note;
 import com.knook.model.User;
 import com.knook.serializer.NoteSerializer;
@@ -19,7 +21,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("users/{user_id}/notes")
+@Path("users/{user_id}/groups/{group_id}/notes")
 public class Notes {
 
     private GsonBuilder builder = new GsonBuilder()
@@ -33,11 +35,13 @@ public class Notes {
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response list(@PathParam("user_id") Long userId) {
+    public Response list(@PathParam("user_id") Long userId, @PathParam("group_id") Long groupId) {
+        GroupDao groupDao = new GroupDao();
         User user = userDao.get(userId);
+        Group group = groupDao.get(groupId);
 
-        if (user != null) {
-            String response = gson.toJson(user.getNotes());
+        if (user != null && group != null) {
+            String response = gson.toJson(group.getNotes());
             return Response.ok(response).build();
         }
         else {

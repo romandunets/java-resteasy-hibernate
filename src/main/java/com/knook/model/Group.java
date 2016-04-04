@@ -35,6 +35,9 @@ public class Group {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToMany(mappedBy = "group", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Note> notes;
+
     @ManyToOne
     @JoinColumn(name = "parent_group_id")
     private Group parent;
@@ -107,6 +110,14 @@ public class Group {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Set<Note> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(Set<Note> notes) {
+        this.notes = notes;
     }
 
     public Set<Group> getChildren() {
