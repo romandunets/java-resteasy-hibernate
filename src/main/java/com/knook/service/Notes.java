@@ -30,13 +30,13 @@ public class Notes {
     private Gson gson = builder.create();
 
     private UserDao userDao = new UserDao();
+    private GroupDao groupDao = new GroupDao();
     private NoteDao noteDao = new NoteDao();
 
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public Response list(@PathParam("user_id") Long userId, @PathParam("group_id") Long groupId) {
-        GroupDao groupDao = new GroupDao();
         User user = userDao.get(userId);
         Group group = groupDao.get(groupId);
 
@@ -52,11 +52,12 @@ public class Notes {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response get(@PathParam("user_id") Long userId, @PathParam("id") Long id) {
+    public Response get(@PathParam("user_id") Long userId, @PathParam("group_id") Long groupId, @PathParam("id") Long id) {
         User user = userDao.get(userId);
+        Group group = groupDao.get(groupId);
         Note note = noteDao.get(id);
 
-        if (user != null && note != null && Objects.equals(note.getUser().getId(), user.getId())) {
+        if (user != null && group != null && note != null && Objects.equals(note.getUser().getId(), user.getId()) && Objects.equals(note.getGroup().getId(), group.getId())) {
             String response = gson.toJson(note);
             return Response.ok(response).build();
         }
