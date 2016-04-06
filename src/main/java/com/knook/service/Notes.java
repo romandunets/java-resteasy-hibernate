@@ -70,10 +70,12 @@ public class Notes {
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response create(@PathParam("user_id") Long userId, String json) {
+    public Response create(@PathParam("user_id") Long userId, @PathParam("group_id") Long groupId, String json) {
         User user = userDao.get(userId);
+        Group group = groupDao.get(groupId);
         Note note = gson.fromJson(json, Note.class);
         note.setUser(user);
+        note.setGroup(group);
 
         if (noteDao.create(note)) {
             return Response.status(Response.Status.OK).build();
