@@ -89,13 +89,15 @@ public class Notes {
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response update(@PathParam("user_id") Long userId, @PathParam("id") Long id, String json) {
+    public Response update(@PathParam("user_id") Long userId, @PathParam("group_id") Long groupId, @PathParam("id") Long id, String json) {
         User user = userDao.get(userId);
+        Group group = groupDao.get(groupId);
         Note note = gson.fromJson(json, Note.class);
         note.setId(id);
         note.setUser(user);
+        note.setGroup(group);
 
-        if (user != null && noteDao.update(note)) {
+        if (user != null && group != null && noteDao.update(note)) {
             return Response.status(Response.Status.OK).build();
         }
         else {
