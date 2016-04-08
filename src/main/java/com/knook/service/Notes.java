@@ -108,11 +108,12 @@ public class Notes {
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(@PathParam("user_id") Long userId, @PathParam("id") Long id) {
+    public Response delete(@PathParam("user_id") Long userId, @PathParam("group_id") Long groupId, @PathParam("id") Long id) {
         User user = userDao.get(userId);
+        Group group = groupDao.get(groupId);
         Note note = noteDao.get(id);
 
-        if (user != null && note != null && Objects.equals(note.getUser().getId(), user.getId()) && noteDao.delete(note)) {
+        if (user != null && group != null && note != null && Objects.equals(note.getUser().getId(), user.getId()) && Objects.equals(note.getGroup().getId(), group.getId()) && noteDao.delete(note)) {
             return Response.status(Response.Status.OK).build();
         }
         else {
