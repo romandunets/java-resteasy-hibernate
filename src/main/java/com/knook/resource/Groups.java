@@ -1,4 +1,4 @@
-package com.knook.service;
+package com.knook.resource;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
