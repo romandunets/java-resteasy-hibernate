@@ -22,7 +22,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("users/{user_id}/groups/{group_id}/notes")
-public class Notes {
+public class NotesResource {
 
     private GsonBuilder builder = new GsonBuilder()
         .setPrettyPrinting()

@@ -21,7 +21,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("users/{user_id}/groups")
-public class Groups {
+public class GroupsResource {
 
     private GsonBuilder builder = new GsonBuilder()
         .setPrettyPrinting()

@@ -17,7 +17,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("users")
-public class Users {
+public class UsersResource {
 
     private GsonBuilder builder = new GsonBuilder()
         .setPrettyPrinting()
