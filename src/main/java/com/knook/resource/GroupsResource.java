@@ -152,7 +152,7 @@ public class GroupsResource {
     @Path("/{id}/children/{child_id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response removeChild(@PathParam("user_id") Long userId, @PathParam("id") Long id, @PathParam("child_id") Long childId, String json) {
+    public Response deleteChild(@PathParam("user_id") Long userId, @PathParam("id") Long id, @PathParam("child_id") Long childId, String json) {
         User user = userDao.get(userId);
         Group parent = groupDao.get(id);
         Group group = groupDao.get(childId);

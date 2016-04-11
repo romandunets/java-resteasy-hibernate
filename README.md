@@ -44,18 +44,19 @@ Also you must have Java 7, Maven to build the application, Glassfish to deploy a
 1. Use your favorite IDE to deploy and run the application. Particularly, for this project were used Netbeans 8.1.
 
 ## API Endpoints
-There are two main services, **users** and **notes**
+There are two main services, **users**, **groups** and **notes**
 
 The routes for these are
 
 - /users
-- /notes
+- /users/{id}/groups
+- /users/{id}/groups/{id}/notes
 
 ### List users
 You can list all users making a GET request to ```/users.json```
 
 ### Get user
-You can get one user making a GET request to ```/users/1.json``` (replace 1 by a target user id)
+You can get one user making a GET request to ```/users/{id}.json```
 
 ### Create user
 You can create an new user making a POST request to ```/users.json``` with the following parameters
@@ -64,31 +65,31 @@ You can create an new user making a POST request to ```/users.json``` with the f
 ```
 
 ### Update user
-You can update an existing user making a PUT request to ```/users/1.json``` (replace 1 by a target user id) with the following parameters
+You can update an existing user making a PUT request to ```/users/{id}.json``` with the following parameters
 ```
 { "email": "johndoe@example.com", "password": "password" }
 ```
 
 ### Delete user
-You can delete an existing user making a DELETE request to ```/users/1.json``` (replace 1 by a target user id)
+You can delete an existing user making a DELETE request to ```/users/{id}.json```
 
 ### List notes
-You can list all notes for a specific user making a GET request to ```/users/1/notes.json``` (replace 1 by a target user id)
+You can list all notes for a specific group owned by user, making a GET request to ```/users/{id}/groups/{id}/notes.json```
 
 ### Get note
-You can get one note for a specific user making a GET request to ```/users/1/notes/2.json``` (replace 1 by a target user id and 2 by a target note id)
+You can get one note for a specific group owned by user, making a GET request to ```/users/{id}/groups/{id}/notes/{id}.json```
 
 ### Create note
-You can create an new note for a specific user making a POST request to ```/users/1/notes.json``` (replace 1 by a target user id) with the following parameters
+You can create an new note for a specific group owned by user, making a POST request to ```/users/{id}/groups/{id}/notes.json``` with the following parameters
 ```
 { "title": "First note", "content": "Some note..." }
 ```
 
 ### Update note
-You can update an existing note for a specific user making a PUT request to ```/users/1/notes/2.json``` (replace 1 by a target user id and 2 by a target note id) with the following parameters
+You can update an existing note for a specific group owned by user, making a PUT request to ```/users/{id}/groups/{id}/notes/{id}.json``` with the following parameters
 ```
 { "title": "Another note", "content": "Another note..." }
 ```
 
 ### Delete note
-You can delete an existing note making a DELETE request to ```/users/1/notes/2.json``` (replace 1 by a target user id and 2 by a target note id)
+You can delete an existing note for a specific group owned by user, making a DELETE request to ```/users/{id}/groups/{id}/notes/{id}.json```
