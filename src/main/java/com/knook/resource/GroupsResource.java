@@ -21,6 +21,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("users/{user_id}/groups")
+@Produces(MediaType.APPLICATION_JSON)
 public class GroupsResource {
 
     private GsonBuilder builder = new GsonBuilder()
@@ -33,7 +34,6 @@ public class GroupsResource {
 
     @GET
     @Path("/")
-    @Produces(MediaType.APPLICATION_JSON)
     public Response list(@PathParam("user_id") Long userId) {
         User user = userDao.get(userId);
 
@@ -48,7 +48,6 @@ public class GroupsResource {
 
     @GET
     @Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
     public Response get(@PathParam("user_id") Long userId, @PathParam("id") Long id) {
         User user = userDao.get(userId);
         Group group = groupDao.get(id);
@@ -65,7 +64,6 @@ public class GroupsResource {
     @POST
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public Response create(@PathParam("user_id") Long userId, String json) {
         User user = userDao.get(userId);
         Group group = gson.fromJson(json, Group.class);
@@ -82,7 +80,6 @@ public class GroupsResource {
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public Response update(@PathParam("user_id") Long userId, @PathParam("id") Long id, String json) {
         User user = userDao.get(userId);
         Group group = gson.fromJson(json, Group.class);
@@ -99,7 +96,6 @@ public class GroupsResource {
 
     @DELETE
     @Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
     public Response delete(@PathParam("user_id") Long userId, @PathParam("id") Long id) {
         User user = userDao.get(userId);
         Group group = groupDao.get(id);
@@ -114,7 +110,6 @@ public class GroupsResource {
 
     @GET
     @Path("/{id}/children")
-    @Produces(MediaType.APPLICATION_JSON)
     public Response listChildren(@PathParam("user_id") Long userId, @PathParam("id") Long id) {
         User user = userDao.get(userId);
         Group group = groupDao.get(id);
@@ -131,7 +126,6 @@ public class GroupsResource {
     @POST
     @Path("/{id}/children")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public Response createChild(@PathParam("user_id") Long userId, @PathParam("id") Long id, String json) {
         User user = userDao.get(userId);
         Group parent = groupDao.get(id);
@@ -151,7 +145,6 @@ public class GroupsResource {
     @DELETE
     @Path("/{id}/children/{child_id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public Response deleteChild(@PathParam("user_id") Long userId, @PathParam("id") Long id, @PathParam("child_id") Long childId, String json) {
         User user = userDao.get(userId);
         Group parent = groupDao.get(id);

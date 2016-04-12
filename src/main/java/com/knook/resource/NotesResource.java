@@ -22,6 +22,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("users/{user_id}/groups/{group_id}/notes")
+@Produces(MediaType.APPLICATION_JSON)
 public class NotesResource {
 
     private GsonBuilder builder = new GsonBuilder()
@@ -35,7 +36,6 @@ public class NotesResource {
 
     @GET
     @Path("/")
-    @Produces(MediaType.APPLICATION_JSON)
     public Response list(@PathParam("user_id") Long userId, @PathParam("group_id") Long groupId) {
         User user = userDao.get(userId);
         Group group = groupDao.get(groupId);
@@ -51,7 +51,6 @@ public class NotesResource {
 
     @GET
     @Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
     public Response get(@PathParam("user_id") Long userId, @PathParam("group_id") Long groupId, @PathParam("id") Long id) {
         User user = userDao.get(userId);
         Group group = groupDao.get(groupId);
@@ -69,7 +68,6 @@ public class NotesResource {
     @POST
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public Response create(@PathParam("user_id") Long userId, @PathParam("group_id") Long groupId, String json) {
         User user = userDao.get(userId);
         Group group = groupDao.get(groupId);
@@ -88,7 +86,6 @@ public class NotesResource {
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public Response update(@PathParam("user_id") Long userId, @PathParam("group_id") Long groupId, @PathParam("id") Long id, String json) {
         User user = userDao.get(userId);
         Group group = groupDao.get(groupId);
@@ -107,7 +104,6 @@ public class NotesResource {
 
     @DELETE
     @Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
     public Response delete(@PathParam("user_id") Long userId, @PathParam("group_id") Long groupId, @PathParam("id") Long id) {
         User user = userDao.get(userId);
         Group group = groupDao.get(groupId);

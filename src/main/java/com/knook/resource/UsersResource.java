@@ -17,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("users")
+@Produces(MediaType.APPLICATION_JSON)
 public class UsersResource {
 
     private GsonBuilder builder = new GsonBuilder()
@@ -28,14 +29,12 @@ public class UsersResource {
 
     @GET
     @Path("/")
-    @Produces(MediaType.APPLICATION_JSON)
     public String list() {
         return gson.toJson(userDao.findAll());
     }
     
     @GET
     @Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
     public Response get(@PathParam("id") Long id) {
         User user = userDao.get(id);
 
@@ -51,7 +50,6 @@ public class UsersResource {
     @POST
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public Response create(String json) {
         User user = gson.fromJson(json, User.class);
 
@@ -66,7 +64,6 @@ public class UsersResource {
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public Response update(@PathParam("id") Long id, String json) {
         User user = gson.fromJson(json, User.class);
         user.setId(id);
@@ -81,7 +78,6 @@ public class UsersResource {
     
     @DELETE
     @Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
     public Response delete(@PathParam("id") Long id) {
         User user = userDao.get(id);
 
