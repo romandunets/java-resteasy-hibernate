@@ -35,7 +35,6 @@ public class NotesResource {
     private NoteDao noteDao = new NoteDao();
 
     @GET
-    @Path("/")
     public Response list(@PathParam("user_id") Long userId, @PathParam("group_id") Long groupId) {
         User user = userDao.get(userId);
         Group group = groupDao.get(groupId);
@@ -66,7 +65,6 @@ public class NotesResource {
     }
 
     @POST
-    @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(@PathParam("user_id") Long userId, @PathParam("group_id") Long groupId, String json) {
         User user = userDao.get(userId);

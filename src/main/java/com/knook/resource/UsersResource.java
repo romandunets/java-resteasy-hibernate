@@ -28,7 +28,6 @@ public class UsersResource {
     private UserDao userDao = new UserDao();
 
     @GET
-    @Path("/")
     public String list() {
         return gson.toJson(userDao.findAll());
     }
@@ -48,7 +47,6 @@ public class UsersResource {
     }
 
     @POST
-    @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(String json) {
         User user = gson.fromJson(json, User.class);

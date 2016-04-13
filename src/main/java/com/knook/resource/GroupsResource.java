@@ -33,7 +33,6 @@ public class GroupsResource {
     private GroupDao groupDao = new GroupDao();
 
     @GET
-    @Path("/")
     public Response list(@PathParam("user_id") Long userId) {
         User user = userDao.get(userId);
 
@@ -62,7 +61,6 @@ public class GroupsResource {
     }
     
     @POST
-    @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(@PathParam("user_id") Long userId, String json) {
         User user = userDao.get(userId);
