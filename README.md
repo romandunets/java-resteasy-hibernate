@@ -73,6 +73,27 @@ You can update an existing user making a PUT request to ```/users/{id}.json``` w
 ### Delete user
 You can delete an existing user making a DELETE request to ```/users/{id}.json```
 
+### List groups
+You can list all groups owned by user, making a GET request to ```/users/{id}/groups.json```
+
+### Get group
+You can get one group for owned by user, making a GET request to ```/users/{id}/groups/{id}.json```
+
+### Create group
+You can create an new group owned by user, making a POST request to ```/users/{id}/groups/{id}.json``` with the following parameters
+```
+{ "name": "Some group", "description": "Some description..." }
+```
+
+### Update group
+You can update an existing group owned by user, making a PUT request to ```/users/{id}/groups/{id}.json``` with the following parameters
+```
+{ "name": "Some group", "description": "Some description..." }
+```
+
+### Delete group
+You can delete an existing group owned by user, making a DELETE request to ```/users/{id}/groups/{id}.json```
+
 ### List notes
 You can list all notes for a specific group owned by user, making a GET request to ```/users/{id}/groups/{id}/notes.json```
 
