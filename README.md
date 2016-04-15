@@ -114,3 +114,12 @@ You can update an existing note for a specific group owned by user, making a PUT
 
 ### Delete note
 You can delete an existing note for a specific group owned by user, making a DELETE request to ```/users/{id}/groups/{id}/notes/{id}.json```
+
+## Further Development
+
+- Attachments for notes
+- Relationships
+- Authentication
+- Icons for groups
+- Icons for notes
+- Filters for resources
