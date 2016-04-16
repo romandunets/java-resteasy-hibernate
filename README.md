@@ -123,3 +123,5 @@ You can delete an existing note for a specific group owned by user, making a DEL
 - Icons for groups
 - Icons for notes
 - Filters for resources
+- Entities validation
+- Unit Tests
