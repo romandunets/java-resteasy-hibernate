@@ -47,3 +47,11 @@ CREATE TABLE IF NOT EXISTS `connections` (
   CONSTRAINT `fk_connections_to_notes_a` FOREIGN KEY (`note_a_id`) REFERENCES `notes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_connections_to_notes_b` FOREIGN KEY (`note_b_id`) REFERENCES `notes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS `attachments` (
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `file` BLOB NOT NULL,
+  `note_id` BIGINT(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_attachments_to_notes` FOREIGN KEY (`note_id`) REFERENCES `notes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+);
