@@ -1,5 +1,6 @@
 package com.knook.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -18,7 +19,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="groups")
-public class Group {
+public class Group implements Serializable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

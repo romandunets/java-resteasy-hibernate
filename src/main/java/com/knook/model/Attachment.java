@@ -1,5 +1,6 @@
 package com.knook.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +15,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="attachments")
-public class Attachment {
+public class Attachment implements Serializable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
