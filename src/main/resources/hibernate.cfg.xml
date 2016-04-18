@@ -12,8 +12,9 @@
     <property name="show_sql">true</property>
 
     <mapping class="com.knook.model.User"/>
-    <mapping class="com.knook.model.Note"/>
     <mapping class="com.knook.model.Group"/>
+    <mapping class="com.knook.model.Note"/>
+    <mapping class="com.knook.model.Attachment"/>
   </session-factory>
 
 </hibernate-configuration>
