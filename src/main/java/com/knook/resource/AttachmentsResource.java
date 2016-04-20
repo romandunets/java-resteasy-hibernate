@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.ws.rs.Consumes;
@@ -27,14 +29,15 @@ public class AttachmentsResource {
         .setPrettyPrinting();
     private Gson gson = builder.create();
 
-    private final String UPLOADED_FILE_PATH = "tmp/";
+    private final String UPLOADED_FILE_PATH = "/tmp/";
 
     @POST
     @Path("/upload")
     @Consumes("multipart/form-data")
     public Response uploadFile(MultipartFormDataInput input) throws IOException {
         Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
-        String fileName = "tmp"; //uploadForm.get("fileName").get(0).getBodyAsString();
+        SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyhhmmssSSS");
+        String fileName = String.format("%s", sdf.format( new Date() ));
         List<InputPart> inputParts = uploadForm.get("attachment");
 
         for (InputPart inputPart : inputParts) {
