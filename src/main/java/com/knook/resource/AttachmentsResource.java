@@ -34,7 +34,7 @@ public class AttachmentsResource {
     @Consumes("multipart/form-data")
     public Response uploadFile(MultipartFormDataInput input) throws IOException {
         Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
-        String fileName = uploadForm.get("fileName").get(0).getBodyAsString();
+        String fileName = "tmp"; //uploadForm.get("fileName").get(0).getBodyAsString();
         List<InputPart> inputParts = uploadForm.get("attachment");
 
         for (InputPart inputPart : inputParts) {
@@ -53,11 +53,10 @@ public class AttachmentsResource {
             }
         }
 
-        return Response.status(200).entity("Uploaded file name : "+ fileName).build();
+        return Response.status(200).build();
     }
 
-    private void writeFile(byte[] content, String filename) throws IOException
-    {
+    private void writeFile(byte[] content, String filename) throws IOException {
         File file = new File(filename);
 
         if (!file.exists()) {
@@ -65,6 +64,7 @@ public class AttachmentsResource {
         }
 
         FileOutputStream fop = new FileOutputStream(file);
+
         fop.write(content);
         fop.flush();
         fop.close();
