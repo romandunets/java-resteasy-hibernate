@@ -25,31 +25,27 @@ import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 @Produces(MediaType.APPLICATION_JSON)
 public class AttachmentsResource {
 
+    private final String UPLOAD_DIR = "/tmp/";
+
     private GsonBuilder builder = new GsonBuilder()
         .setPrettyPrinting();
     private Gson gson = builder.create();
-
-    private final String UPLOADED_FILE_PATH = "/tmp/";
 
     @POST
     @Path("/upload")
     @Consumes("multipart/form-data")
     public Response uploadFile(MultipartFormDataInput input) throws IOException {
         Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
-        SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyhhmmssSSS");
-        String fileName = String.format("%s", sdf.format( new Date() ));
         List<InputPart> inputParts = uploadForm.get("attachment");
+        String filename = getRandomFilename();
 
         for (InputPart inputPart : inputParts) {
             try {
-                @SuppressWarnings("unused")
-                MultivaluedMap<String, String> header = inputPart.getHeaders();
-
                 InputStream inputStream = inputPart.getBody(InputStream.class, null);
-
                 byte[] bytes = IOUtils.toByteArray(inputStream);
-                fileName = UPLOADED_FILE_PATH + fileName;
-                writeFile(bytes, fileName);
+
+                String path = UPLOAD_DIR + filename;
+                writeFile(bytes, path);
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -71,6 +67,13 @@ public class AttachmentsResource {
         fop.write(content);
         fop.flush();
         fop.close();
+    }
+
+    private String getRandomFilename() {
+        SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyhhmmssSSS");
+        String filename = sdf.format(new Date());
+
+        return filename;
     }
 
 }
