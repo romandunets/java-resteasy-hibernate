@@ -60,9 +60,13 @@ public class AttachmentsResource {
 
         Note note = noteDao.get(note_id);
         Attachment attachment = new Attachment(filename, note);
-        attachmentDao.create(attachment);
 
-        return Response.status(200).build();
+        if (attachmentDao.create(attachment)) {
+            return Response.status(Response.Status.OK).build();
+        }
+        else {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
     }
 
     private void writeFile(byte[] content, String filename) throws IOException {
