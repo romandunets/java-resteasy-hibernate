@@ -2,6 +2,10 @@ package com.knook.resource;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.knook.dao.AttachmentDao;
+import com.knook.dao.NoteDao;
+import com.knook.model.Attachment;
+import com.knook.model.Note;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -12,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -31,26 +36,31 @@ public class AttachmentsResource {
         .setPrettyPrinting();
     private Gson gson = builder.create();
 
+    private AttachmentDao attachmentDao = new AttachmentDao();
+    private NoteDao noteDao = new NoteDao();
+
     @POST
     @Path("/upload")
     @Consumes("multipart/form-data")
-    public Response uploadFile(MultipartFormDataInput input) throws IOException {
+    public Response uploadFile(MultipartFormDataInput input, @HeaderParam("note_id") Long note_id) throws IOException {
         Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
         List<InputPart> inputParts = uploadForm.get("attachment");
-        String filename = getRandomFilename();
+        String filename = UPLOAD_DIR + getRandomFilename();
 
         for (InputPart inputPart : inputParts) {
             try {
                 InputStream inputStream = inputPart.getBody(InputStream.class, null);
                 byte[] bytes = IOUtils.toByteArray(inputStream);
-
-                String path = UPLOAD_DIR + filename;
-                writeFile(bytes, path);
+                writeFile(bytes, filename);
             }
             catch (Exception e) {
                 e.printStackTrace();
             }
         }
+
+        Note note = noteDao.get(note_id);
+        Attachment attachment = new Attachment(filename, note);
+        attachmentDao.create(attachment);
 
         return Response.status(200).build();
     }

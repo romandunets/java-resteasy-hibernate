@@ -45,12 +45,12 @@ public class Attachment implements Serializable {
         this.updatedAt = new Date();
     }
 
-    public Attachment(Long id, String filename, Note note, Date createdAt, Date updatedAt) {
-        this.id = id;
-        this.filename = "";
+    public Attachment(String filename, Note note) {
+        this.id = 0l;
+        this.filename = filename;
         this.note = note;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
     }
 
     public Long getId() {
