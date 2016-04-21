@@ -22,8 +22,8 @@ public class Attachment implements Serializable {
     @Column(name="id", nullable=false)
     private Long id;
 
-    @Column(name="file", nullable=false)
-    private Byte[] file;
+    @Column(name="filename", nullable=false)
+    private String filename;
 
     @ManyToOne
     @JoinColumn(name = "note_id")
@@ -39,15 +39,15 @@ public class Attachment implements Serializable {
 
     public Attachment() {
         this.id = 0l;
-        this.file = new Byte[0];
+        this.filename = "";
         this.note = new Note();
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }
 
-    public Attachment(Long id, Byte[] file, Note note, Date createdAt, Date updatedAt) {
+    public Attachment(Long id, String filename, Note note, Date createdAt, Date updatedAt) {
         this.id = id;
-        this.file = file;
+        this.filename = "";
         this.note = note;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -61,12 +61,12 @@ public class Attachment implements Serializable {
         this.id = id;
     }
 
-    public Byte[] getFile() {
-        return file;
+    public String getFilename() {
+        return filename;
     }
 
-    public void setFile(Byte[] file) {
-        this.file = file;
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 
     public Note getNote() {
