@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -70,8 +71,12 @@ public class AttachmentsResource {
 
     private String getRandomFilename() {
         SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyhhmmssSSS");
-        String filename = sdf.format(new Date());
+        String timestamp = sdf.format(new Date());
 
+        Random random = new Random();
+        Integer randomNumber = random.nextInt(900) + 100;
+
+        String filename = String.format("%s%s", timestamp, randomNumber.toString());
         return filename;
     }
 
