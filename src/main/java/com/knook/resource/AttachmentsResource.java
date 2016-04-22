@@ -16,9 +16,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -38,6 +40,20 @@ public class AttachmentsResource {
 
     private AttachmentDao attachmentDao = new AttachmentDao();
     private NoteDao noteDao = new NoteDao();
+
+    @GET
+    @Path("/{note_id}")
+    public Response list(@PathParam("note_id") Long noteId) {
+        Note note = noteDao.get(noteId);
+
+        if (note != null) {
+            String response = gson.toJson(note.getAttachments());
+            return Response.ok(response).build();
+        }
+        else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
 
     @POST
     @Path("/upload")
