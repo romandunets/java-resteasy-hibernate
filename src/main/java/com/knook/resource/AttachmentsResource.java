@@ -61,7 +61,7 @@ public class AttachmentsResource {
         Note note = noteDao.get(note_id);
         Attachment attachment = new Attachment(filename, note);
 
-        if (attachmentDao.create(attachment)) {
+        if (note != null && attachmentDao.create(attachment)) {
             return Response.status(Response.Status.OK).build();
         }
         else {
