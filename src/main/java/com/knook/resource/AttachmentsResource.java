@@ -6,6 +6,7 @@ import com.knook.dao.AttachmentDao;
 import com.knook.dao.NoteDao;
 import com.knook.model.Attachment;
 import com.knook.model.Note;
+import com.knook.serializer.AttachmentSerializer;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -35,7 +36,8 @@ public class AttachmentsResource {
     private final String UPLOAD_DIR = "/tmp/";
 
     private GsonBuilder builder = new GsonBuilder()
-        .setPrettyPrinting();
+        .setPrettyPrinting()
+        .registerTypeAdapter(Attachment.class, new AttachmentSerializer());;
     private Gson gson = builder.create();
 
     private AttachmentDao attachmentDao = new AttachmentDao();
