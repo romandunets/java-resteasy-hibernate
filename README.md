@@ -115,6 +115,9 @@ You can update an existing note for a specific group owned by user, making a PUT
 ### Delete note
 You can delete an existing note for a specific group owned by user, making a DELETE request to ```/users/{id}/groups/{id}/notes/{id}.json```
 
+### List attachments
+You can list all attachments for a specific note making a GET request to ```/attachments/{note_id}.json```
+
 ## Further Development
 
 - Attachments for notes
