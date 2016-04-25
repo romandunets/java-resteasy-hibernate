@@ -7,24 +7,32 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="connectino_types")
-public class ConnectionType implements Serializable {
+@Table(name="connections")
+public class Connection implements Serializable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id", nullable=false)
     private Long id;
 
-    @Column(name="name", nullable=false)
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "note_a_id")
+    private Note noteA;
 
-    @Column(name="description", nullable=false)
-    private String description;
+    @ManyToOne
+    @JoinColumn(name = "note_b_id")
+    private Note noteB;
+
+    @ManyToOne
+    @JoinColumn(name = "connection_type_id")
+    private ConnectionType connectionType;
 
     @Column(name="created_at", updatable = false, nullable=false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -34,18 +42,20 @@ public class ConnectionType implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
-    public ConnectionType() {
+    public Connection() {
         this.id = 0l;
-        this.name = "";
-        this.description = "";
+        this.noteA = new Note();
+        this.noteB = new Note();
+        this.connectionType = new ConnectionType();
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }
 
-    public ConnectionType(String name, String description) {
+    public Connection(Note noteA, Note noteB, ConnectionType connectionType) {
         this.id = 0l;
-        this.name = name;
-        this.description = description;
+        this.noteA = noteA;
+        this.noteB = noteB;
+        this.connectionType = connectionType;
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }
@@ -58,20 +68,28 @@ public class ConnectionType implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Note getNoteA() {
+        return noteA;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNoteA(Note noteA) {
+        this.noteA = noteA;
     }
 
-    public String getDescription() {
-        return description;
+    public Note getNoteB() {
+        return noteB;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setNoteB(Note noteB) {
+        this.noteB = noteB;
+    }
+
+    public ConnectionType getConnectionType() {
+        return connectionType;
+    }
+
+    public void setConnectionType(ConnectionType connectionType) {
+        this.connectionType = connectionType;
     }
 
     public Date getCreatedAt() {
