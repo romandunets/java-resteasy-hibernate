@@ -2,11 +2,15 @@ package com.knook.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,6 +29,9 @@ public class ConnectionType implements Serializable {
 
     @Column(name="description", nullable=false)
     private String description;
+
+    @OneToMany(mappedBy = "user", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Connection> connections;
 
     @Column(name="created_at", updatable = false, nullable=false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -72,6 +79,14 @@ public class ConnectionType implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Set<Connection> getConnections() {
+        return connections;
+    }
+
+    public void setConnections(Set<Connection> connections) {
+        this.connections = connections;
     }
 
     public Date getCreatedAt() {
