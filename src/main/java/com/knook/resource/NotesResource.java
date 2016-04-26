@@ -2,9 +2,11 @@ package com.knook.resource;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.knook.dao.ConnectionDao;
 import com.knook.dao.GroupDao;
 import com.knook.dao.NoteDao;
 import com.knook.dao.UserDao;
+import com.knook.model.Connection;
 import com.knook.model.Group;
 import com.knook.model.Note;
 import com.knook.model.User;
@@ -33,6 +35,7 @@ public class NotesResource {
     private UserDao userDao = new UserDao();
     private GroupDao groupDao = new GroupDao();
     private NoteDao noteDao = new NoteDao();
+    private ConnectionDao connectionDao = new ConnectionDao();
 
     @GET
     public Response list(@PathParam("user_id") Long userId, @PathParam("group_id") Long groupId) {
@@ -115,4 +118,20 @@ public class NotesResource {
         }
     }
 
+    @POST
+    @Path("/{id}/connections")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response createConnection(@PathParam("user_id") Long userId, @PathParam("group_id") Long groupId, @PathParam("id") Long id, String json) {
+        User user = userDao.get(userId);
+        Group group = groupDao.get(groupId);
+        Note note = noteDao.get(id);
+        Connection connection = gson.fromJson(json, Connection.class);
+
+        if (user != null && group != null && note != null && Objects.equals(note.getUser().getId(), user.getId()) && connectionDao.create(connection)) {
+            return Response.status(Response.Status.OK).build();
+        }
+        else {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
 }
