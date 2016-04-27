@@ -19,6 +19,8 @@ import javax.persistence.TemporalType;
 @Table(name="connectino_types")
 public class ConnectionType implements Serializable {
 
+    public static final String CHILD = "child";
+
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id", nullable=false)
