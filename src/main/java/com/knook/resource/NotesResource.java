@@ -3,10 +3,12 @@ package com.knook.resource;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.knook.dao.ConnectionDao;
+import com.knook.dao.ConnectionTypeDao;
 import com.knook.dao.GroupDao;
 import com.knook.dao.NoteDao;
 import com.knook.dao.UserDao;
 import com.knook.model.Connection;
+import com.knook.model.ConnectionType;
 import com.knook.model.Group;
 import com.knook.model.Note;
 import com.knook.model.User;
@@ -36,6 +38,7 @@ public class NotesResource {
     private GroupDao groupDao = new GroupDao();
     private NoteDao noteDao = new NoteDao();
     private ConnectionDao connectionDao = new ConnectionDao();
+    private ConnectionTypeDao connectionTypeDao = new ConnectionTypeDao();
 
     @GET
     public Response list(@PathParam("user_id") Long userId, @PathParam("group_id") Long groupId) {
@@ -119,15 +122,21 @@ public class NotesResource {
     }
 
     @POST
-    @Path("/{id}/connections")
+    @Path("/{id}/connections/{child_id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createConnection(@PathParam("user_id") Long userId, @PathParam("group_id") Long groupId, @PathParam("id") Long id, String json) {
+    public Response addChildNote(@PathParam("user_id") Long userId, @PathParam("group_id") Long groupId, @PathParam("id") Long id, @PathParam("child_id") Long note_id, String json) {
         User user = userDao.get(userId);
         Group group = groupDao.get(groupId);
-        Note note = noteDao.get(id);
-        Connection connection = gson.fromJson(json, Connection.class);
+        Note note_a = noteDao.get(id);
+        Note note_b = noteDao.get(note_id);
+        ConnectionType connectionType = connectionTypeDao.findByName(ConnectionType.CHILD);
 
-        if (user != null && group != null && note != null && Objects.equals(note.getUser().getId(), user.getId()) && connectionDao.create(connection)) {
+        Connection connection = gson.fromJson(json, Connection.class);
+        connection.setNoteB(note_b);
+        connection.setNoteB(note_b);
+        connection.setConnectionType(connectionType);
+
+        if (user != null && group != null && note_a != null && Objects.equals(note_a.getUser().getId(), user.getId()) && connectionDao.create(connection)) {
             return Response.status(Response.Status.OK).build();
         }
         else {
