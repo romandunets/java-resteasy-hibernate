@@ -15,6 +15,8 @@
     <mapping class="com.knook.model.Group"/>
     <mapping class="com.knook.model.Note"/>
     <mapping class="com.knook.model.Attachment"/>
+    <mapping class="com.knook.model.Connection"/>
+    <mapping class="com.knook.model.ConnectionType"/>
   </session-factory>
 
 </hibernate-configuration>
