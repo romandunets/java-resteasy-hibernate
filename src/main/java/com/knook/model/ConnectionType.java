@@ -16,7 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="connectino_types")
+@Table(name="connection_types")
 public class ConnectionType implements Serializable {
 
     public static final String CHILD = "child";
