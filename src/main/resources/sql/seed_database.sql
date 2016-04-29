@@ -13,3 +13,5 @@ INSERT INTO `notes` (`title`, `content`, `user_id`, `group_id`) VALUES ("Java Ve
 INSERT INTO `notes` (`title`, `content`, `user_id`, `group_id`) VALUES ("Objects", "Objects have states and behaviours.", 1, 3);
 INSERT INTO `notes` (`title`, `content`, `user_id`, `group_id`) VALUES ("Definition", "JavaScript is a high-level, dynamic, untyped, and interpreted programming language.", 1, 4);
 INSERT INTO `notes` (`title`, `content`, `user_id`, `group_id`) VALUES ("Ruby", "Ruby is dynamic, open source programming language intended for web applications development.", 2, 5);
+
+INSERT INTO `connection_types` (`name`, `description`) VALUES ("child", "Child to parent connection type");
