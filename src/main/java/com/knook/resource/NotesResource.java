@@ -122,21 +122,22 @@ public class NotesResource {
     }
 
     @POST
-    @Path("/{id}/connections/{child_id}")
+    @Path("/{id}/children/{child_id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addChildNote(@PathParam("user_id") Long userId, @PathParam("group_id") Long groupId, @PathParam("id") Long id, @PathParam("child_id") Long note_id, String json) {
+    public Response addChildNote(@PathParam("user_id") Long userId, @PathParam("group_id") Long groupId, @PathParam("id") Long id, @PathParam("child_id") Long childId, String json) {
         User user = userDao.get(userId);
         Group group = groupDao.get(groupId);
-        Note note_a = noteDao.get(id);
-        Note note_b = noteDao.get(note_id);
+        Note noteA = noteDao.get(id);
+        Note noteB = noteDao.get(childId);
         ConnectionType connectionType = connectionTypeDao.findByName(ConnectionType.CHILD);
 
         Connection connection = gson.fromJson(json, Connection.class);
-        connection.setNoteB(note_b);
-        connection.setNoteB(note_b);
+        connection.setNoteA(noteA);
+        connection.setNoteB(noteB);
         connection.setConnectionType(connectionType);
+        System.out.println(connectionType.getId());
 
-        if (user != null && group != null && note_a != null && Objects.equals(note_a.getUser().getId(), user.getId()) && connectionDao.create(connection)) {
+        if (user != null && group != null && noteA != null && Objects.equals(noteA.getUser().getId(), user.getId()) && connectionDao.create(connection)) {
             return Response.status(Response.Status.OK).build();
         }
         else {
